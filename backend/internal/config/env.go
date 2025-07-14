@@ -21,3 +21,14 @@ func LoadJWTSecret()[]byte{
 
 	return []byte(os.Getenv("HASURA_GRAPHQL_JWT_SECRET"))
 }
+func LoadADMINSecret()[]byte{
+	LoadEnv()
+
+	return []byte(os.Getenv("HASURA_GRAPHQL_ADMIN_SECRET"))
+}
+
+func ENDPoint() []byte{
+	LoadEnv()
+	return []byte(os.Getenv("END_POINT"))
+
+}
