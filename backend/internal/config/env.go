@@ -3,32 +3,33 @@ package config
 import (
 	"log"
 	"os"
+	"sync"
 
 	"github.com/joho/godotenv"
 )
 
+var once sync.Once
 
-func LoadEnv(){
-	err:= godotenv.Load(".env")
-
-	if err != nil {
-		log.Println("NO env file found or error loading it",err)
-	}
+func LoadEnv() {
+	once.Do(func() {
+		err := godotenv.Load(".env")
+		if err != nil {
+			log.Println("NO env file found or error loading it", err)
+		}
+	})
 }
 
-func LoadJWTSecret()[]byte{
+func LoadJWTSecret() []byte {
 	LoadEnv()
-
 	return []byte(os.Getenv("HASURA_GRAPHQL_JWT_SECRET"))
 }
-func LoadADMINSecret()[]byte{
-	LoadEnv()
 
+func LoadADMINSecret() []byte {
+	LoadEnv()
 	return []byte(os.Getenv("HASURA_GRAPHQL_ADMIN_SECRET"))
 }
 
-func ENDPoint() []byte{
+func ENDPoint() []byte {
 	LoadEnv()
 	return []byte(os.Getenv("END_POINT"))
-
 }
