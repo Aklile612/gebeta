@@ -3,8 +3,6 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
-
-	"github.com/aklile/recipe-backend/internal/graphql"
 )
 
 
@@ -27,6 +25,6 @@ func LoginHandler(w http.ResponseWriter, r *http.Request){
 		http.Error(w,"Bad request",http.StatusBadRequest)
 		return
 	}
-	user,err:= graphql
+	
 
 }
