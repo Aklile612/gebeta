@@ -12,6 +12,9 @@ import (
 )
 var adminSecret = config.LoadADMINSecret()
 func InsertUser(name, email, password string) (models.User, error) {
+	if Client == nil {
+        return models.User{}, fmt.Errorf("graphql client not initialized")
+    }
 	req := hasura.NewRequest(`
 		mutation($name:string!,$email:string!,$password:string!){
 			insert_user_one(object:{
