@@ -28,7 +28,7 @@ func InsertUser(name, email, password string) (models.User, error) {
 	req.Var("name",name)
 	req.Var("email",email)
 	req.Var("password",password)
-	req.Header.Set("x-hasura-admin-secret",adminSecret)
+	req.Header.Set("x-hasura-admin-secret",string(adminSecret))
 
 	var resp struct{
 		InsertUser models.User  `json:"insert_user_one"`
