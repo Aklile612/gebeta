@@ -34,3 +34,8 @@ func ENDPoint() []byte {
 	LoadEnv()
 	return []byte(os.Getenv("END_POINT"))
 }
+func CLOUDINARYCREDINTIALS() (string,string,string){
+	LoadEnv()
+	return os.Getenv("CLOUDINARY_CLOUD_NAME"), os.Getenv("CLOUDINARY_API_KEY"), os.Getenv("CLOUDINARY_API_SECRET")
+
+}
