@@ -11,12 +11,23 @@ import (
 
 
 func AddRecipeHandler(c *gin.Context){
+	userIDInterf, exists := c.Get("user_id")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User ID not found"})
+		return
+	}
+
+	userID, ok := userIDInterf.(string)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Invalid user ID"})
+		return
+	}
 	title:= c.PostForm("title")
 	description := c.PostForm("description")
 	prepTimeStr := c.PostForm("prep_time_minutes")
 	cookTimeStr := c.PostForm("cook_time_minutes")
 	difficulty := c.PostForm("difficulty")
-	userID := c.PostForm("user_id")
+	
 	categoryID := c.PostForm("category_id")
 	isPaid := c.PostForm("is_paid") == "true"
 	priceStr := c.PostForm("price")
