@@ -1,11 +1,11 @@
 package main
 
 import (
-	
 	"fmt"
 	"log"
 	"os"
 
+	"github.com/aklile/recipe-backend/internal/auth"
 	"github.com/aklile/recipe-backend/internal/config"
 	"github.com/aklile/recipe-backend/internal/graphql"
 	"github.com/aklile/recipe-backend/internal/handlers"
@@ -34,6 +34,10 @@ func main() {
 
 	router.POST("/register", handlers.RegisterHandler)
 	router.POST("/login",handlers.LoginHandler)
+
+	authGroup:= router.Group("/")
+	authGroup.Use(auth.JWTMiddleware())
+	authGroup.POST("/add_recipes",handlers.AddRecipeHandler)
 
 	err := router.Run(":8081")
 
