@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/aklile/recipe-backend/internal/graphql"
 	"github.com/aklile/recipe-backend/internal/media"
 	"github.com/gin-gonic/gin"
 )
@@ -39,5 +40,11 @@ func AddRecipeHandler(c *gin.Context){
 	price,_ := strconv.ParseFloat(priceStr,64)
 
 
-	
+	recipe,err:= graphql.InsertRecipe(title, description, imageURL, difficulty, prepTime, cookTime, userID, categoryID, isPaid, price)
+
+	if err!= nil{
+		c.JSON(http.StatusInternalServerError,gin.H{"error":"Failed to create a recipe"})
+		return
+	}
+	c.JSON(http.StatusOK,gin.H{"recie":recipe})
 }
