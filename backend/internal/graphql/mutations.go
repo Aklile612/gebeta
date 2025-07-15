@@ -85,5 +85,12 @@
 		req.Var("is_paid", isPaid)
 		req.Var("price", price)
 		req.Header.Set("x-hasura-admin-secret", string(adminSecret))
-		
+
+		var resp struct{
+			InsertRecipe models.Recipe `json:"insert_recipes_one"`
+		}
+
+		err := Client.Run(context.Background(),req,&resp)
+
+		return resp.InsertRecipe,err
 	}
