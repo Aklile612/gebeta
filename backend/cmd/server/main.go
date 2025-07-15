@@ -29,10 +29,11 @@ func main() {
 	} else {
 		fmt.Println("✅ GraphQL client initialized")
 	}
-
+	// go build -o servercmd && ./servercmd
 	router := gin.Default()
 
 	router.POST("/register", handlers.RegisterHandler)
+	router.POST("/login",handlers.LoginHandler)
 
 	err := router.Run(":8081")
 
