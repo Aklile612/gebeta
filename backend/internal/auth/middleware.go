@@ -1,35 +1,41 @@
 package auth
 
 import (
-	"context"
+	
 	"net/http"
+	
 	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
 type key int
 
 const UserKey key =0
-func JWTMiddleware(next http.Handler) http.Handler{
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request){
-		authHeader:=r.Header.Get("Authorization")
+func JWTMiddleware()gin.HandlerFunc{
+	return (func(c *gin.Context){
+		authHeader:=c.GetHeader("Authorization")
 		if authHeader == ""{
-			http.Error(w,"missing authorization header",http.StatusUnauthorized)
+			c.JSON(http.StatusUnauthorized,gin.H{"error":"missing authorization header"})
+			c.Abort()
 			return 
 		}
 		parts:= strings.Split(authHeader," ")
-		if len(parts)!= 2 || parts[0] != "Bearer"{
-			http.Error(w,"invalid authorization header",http.StatusUnauthorized)
+		if len(parts)!= 2 || strings.ToLower(parts[0])!= "Bearer"{
+			c.JSON(http.StatusUnauthorized,gin.H{"error":"invalid authorization header"})
+			c.Abort()
 			return
 		}
 
 		tokenStr:= parts[1]
 		claims,err:= ValidateJWT(tokenStr)
 		if err!= nil{
-			http.Error(w,"invalid token",http.StatusUnauthorized)
+			c.JSON(http.StatusUnauthorized,gin.H{"error":"invalid token"})
+			c.Abort()
 			return 
 		}
-
-		ctx:= context.WithValue(r.Context(),UserKey,claims.UserID)
-		next.ServeHTTP(w,r.WithContext(ctx))
+		c.Set("user_id",claims.UserID)
+		c.Next()
+		
 	})
 }
