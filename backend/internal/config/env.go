@@ -16,6 +16,7 @@ func LoadEnv() {
 		if err != nil {
 			log.Println("NO env file found or error loading it", err)
 		}
+
 	})
 }
 
