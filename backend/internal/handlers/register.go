@@ -39,6 +39,12 @@ func RegisterHandler(c *gin.Context){
 		return
 	}
 
-	c.JSON(http.StatusOK,gin.H{"message":"user successfully created","user":user})
+	token,err:= auth.GenerateJWT(user.ID)
+
+	if err != nil{
+		c.JSON(http.StatusInternalServerError,gin.H{"Error": "Error geerating token the user"})
+	}
+
+	c.JSON(http.StatusOK,gin.H{"message":"user successfully created","user":user,"token":token})
 
 }
