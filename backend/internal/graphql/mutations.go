@@ -17,7 +17,7 @@
 			return models.User{}, fmt.Errorf("graphql client not initialized")
 		}
 		var adminSecret = config.LoadADMINSecret()
-		fmt.Printf("Client is nil? %v\n", Client == nil)
+		
 		fmt.Printf("Admin Secret: %s\n", string(adminSecret))
 
 		req := hasura.NewRequest(`
