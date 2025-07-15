@@ -16,7 +16,7 @@ func JWTMiddleware(next http.Handler) http.Handler{
 			http.Error(w,"missing authorization header",http.StatusUnauthorized)
 			return 
 		}
-		parts:= strings.Split(authHeader,"")
+		parts:= strings.Split(authHeader," ")
 		if len(parts)!= 2 || parts[0] != "Bearer"{
 			http.Error(w,"invalid authorization header",http.StatusUnauthorized)
 			return
