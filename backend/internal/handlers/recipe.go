@@ -62,5 +62,5 @@ if err != nil {
 		c.JSON(http.StatusInternalServerError,gin.H{"error":"Failed to create a recipe"})
 		return
 	}
-	c.JSON(http.StatusOK,gin.H{"recie":recipe})
+	c.JSON(http.StatusOK,gin.H{"recipe":recipe})
 }
