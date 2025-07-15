@@ -51,3 +51,39 @@
 		return resp.InsertUser, nil
 
 	}
+	func InsertRecipe(title,desc,imageURL, difficulty string, prepTime, cookTime int, userID, categoryID string, isPaid bool, price float64)(models.Recipe,error){
+
+		var adminSecret = config.LoadADMINSecret()
+		req:= hasura.NewRequest(`
+			mutation($title: String!, $description: String!, $featured_image: String!, $difficulty: String!, $prep_time_minutes: Int!, $cook_time_minutes: Int!, $user_id: uuid!, $category_id: uuid!, $is_paid: Boolean!, $price: numeric!){
+				insert_recipes_one(object:{
+					title: $title,
+					description: $description,
+					featured_image: $featured_image,
+					difficulty: $difficulty,
+					prep_time_minutes: $prep_time_minutes,
+					cook_time_minutes: $cook_time_minutes,
+					user_id: $user_id,
+					category_id: $category_id,
+					is_paid: $is_paid,
+					price: $price
+				}){
+					id
+					title
+					featured_image	
+				}
+			}
+		`)
+		req.Var("title", title)
+		req.Var("description", desc)
+		req.Var("featured_image", imageURL)
+		req.Var("difficulty", difficulty)
+		req.Var("prep_time_minutes", prepTime)
+		req.Var("cook_time_minutes", cookTime)
+		req.Var("user_id", userID)
+		req.Var("category_id", categoryID)
+		req.Var("is_paid", isPaid)
+		req.Var("price", price)
+		req.Header.Set("x-hasura-admin-secret", string(adminSecret))
+		
+	}
