@@ -26,6 +26,7 @@ func JWTMiddleware(next http.Handler) http.Handler{
 		claims,err:= ValidateJWT(tokenStr)
 		if err!= nil{
 			http.Error(w,"invalid token",http.StatusUnauthorized)
+			return 
 		}
 
 		ctx:= context.WithValue(r.Context(),UserKey,claims.UserID)
