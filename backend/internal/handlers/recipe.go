@@ -28,7 +28,12 @@ func AddRecipeHandler(c *gin.Context){
 	cookTimeStr := c.PostForm("cook_time_minutes")
 	difficulty := c.PostForm("difficulty")
 	
-	categoryID := c.PostForm("category_id")
+	categoryName := c.PostForm("category_name")
+	categoryID, err := graphql.GetOrCreateCatagoryID(categoryName)
+if err != nil {
+	c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get/create category"})
+	return
+}
 	isPaid := c.PostForm("is_paid") == "true"
 	priceStr := c.PostForm("price")
 
