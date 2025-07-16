@@ -106,6 +106,7 @@
 			})
 
 		}
+		fmt.Printf("Steps to insert: %+v\n", inputSteps)
 		req:= hasura.NewRequest(`
 			mutation($steps:[recipe_steps_insert_input!]!){
 				insert_recipe_steps(objects:$steps){
@@ -116,7 +117,6 @@
 
 		req.Var("steps",inputSteps)
 		req.Header.Set("x-hasura-admin-secret", string(adminSecret))
-
 		var resp struct {
         	InsertRecipeSteps struct {
         	    AffectedRows int `json:"affected_rows"`
