@@ -95,7 +95,7 @@
 		return resp.InsertRecipe,err
 	}
 	func InsertRecipeSteps(recipeId string, steps []models.StepInput) error{
-		var adminSecret:= config.LoadADMINSecret()
+		adminSecret:= config.LoadADMINSecret()
 
 		var inputSteps []map [string]interface{}
 		for _,step := range steps{
