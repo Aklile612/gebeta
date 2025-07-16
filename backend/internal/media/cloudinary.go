@@ -2,6 +2,7 @@ package media
 
 import (
 	"context"
+	"fmt"
 	"mime/multipart"
 
 	"github.com/aklile/recipe-backend/internal/config"
@@ -10,19 +11,36 @@ import (
 )
 
 
-func UploadImage(file multipart.File, fileHeader *multipart.FileHeader)(string,error){
-	cloudName, apiKey, apiSecret := config.CLOUDINARYCREDINTIALS()
-	cld,err:= cloudinary.NewFromParams(cloudName,apiKey,apiSecret)
+func UploadImage(file multipart.File, fileHeader *multipart.FileHeader) (string, error) {
+    if fileHeader.Size == 0 {
+        return "", fmt.Errorf("image file is empty")
+    }
 
-	if err!= nil{
-		return "",err
-	}
+    cloudName, apiKey, apiSecret := config.CLOUDINARYCREDINTIALS()
+	fmt.Println("cloudName:", cloudName)
+	fmt.Println("apiKey:", apiKey)
+	fmt.Println("apiSecret:", apiSecret)
 
-	uploadResult,err:= cld.Upload.Upload(context.Background(),file,uploader.UploadParams{Folder: "recipes"})
+    cld, err := cloudinary.NewFromParams(cloudName, apiKey, apiSecret)
+    if err != nil {
+        return "", fmt.Errorf("cloudinary init error: %w", err)
+    }
 
-	if err != nil{
-		return "",err
-	}
+    
+    file.Seek(0, 0)
 
-	return uploadResult.SecureURL,nil
+    uploadResult, err := cld.Upload.Upload(context.Background(), file, uploader.UploadParams{
+        Folder: "recipes",
+    })
+    if err != nil {
+        return "", fmt.Errorf("cloudinary upload error: %w", err)
+    }
+
+    fmt.Printf("Cloudinary Upload Full Response: %+v\n", uploadResult)
+
+    if uploadResult.SecureURL == "" {
+        return "", fmt.Errorf("cloudinary returned empty SecureURL")
+    }
+
+    return uploadResult.SecureURL, nil
 }
