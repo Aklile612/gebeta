@@ -130,7 +130,7 @@
 		adminSecret:= config.LoadADMINSecret()	
 
 		req:= hasura.NewRequest(`
-			mutation($user_id: uuid!,recipe_id: uuid!,comment: String!){
+			mutation($user_id: uuid!,$recipe_id: uuid!,$comment: String!){
 				insert_comments_one(object:{
 					user_id:$user_id,
 					recipe_id:$recipe_id,
