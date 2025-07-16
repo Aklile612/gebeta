@@ -14,7 +14,7 @@ func GetOrCreateCatagoryID(name string) (string, error) {
 
 	checkQuery := graphql.NewRequest(`
 		query($name:String!){
-			catagories(where:{name: {_eq:$name}}){
+			categories(where:{name: {_eq:$name}}){
 				id
 			}
 		}
@@ -41,7 +41,7 @@ func GetOrCreateCatagoryID(name string) (string, error) {
 
 	insertReq:= graphql.NewRequest(`
 		mutation($name:String!){
-			insert_catagories_one(object:{name:$name}){
+			insert_categories_one(object:{name:$name}){
 				id
 			}
 		}
