@@ -94,3 +94,6 @@
 
 		return resp.InsertRecipe,err
 	}
+	func InsertRecipeSteps(recipeId string, steps []models.StepInput) error{
+		
+	}
