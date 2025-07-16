@@ -1,12 +1,14 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strconv"
 
 	"github.com/aklile/recipe-backend/internal/graphql"
 	"github.com/aklile/recipe-backend/internal/media"
+	"github.com/aklile/recipe-backend/internal/models"
 	"github.com/gin-gonic/gin"
 )
 
@@ -61,6 +63,21 @@ if err != nil {
 
 	if err!= nil{
 		c.JSON(http.StatusInternalServerError,gin.H{"error":"Failed to create a recipe"})
+		return
+	}
+	stepsJson:=c.PostForm("steps")
+	
+	var steps []models.StepInput
+
+	err = json.Unmarshal([]byte(stepsJson),&steps)
+
+	if err != nil{
+		c.JSON(http.StatusBadRequest,gin.H{"error":"Invalid steps format","detail":err.Error()})
+		return
+	}
+	err= graphql.InsertRecipeSteps(recipe.ID,steps)
+	if err != nil{
+		c.JSON(http.StatusInternalServerError,gin.H{"error":"failed to save steps","details":err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK,gin.H{"recipe":recipe})
