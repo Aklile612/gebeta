@@ -153,3 +153,37 @@
 		}
 		return  Client.Run(context.Background(),req,&resp)
 	}
+
+	func InsertIngredients(recipeID string, ingredients []models.IngredientInput) error{
+		adminSecret:= config.LoadADMINSecret()
+
+		var inputIngredients []map [string]interface{}
+
+		for _,ingredient := range ingredients{
+			inputIngredients = append(inputIngredients, map[string]interface{}{
+				"recipe_id":recipeID,
+				"name":ingredient.Name,
+				"quantity":ingredient.Quantity,
+			})
+		}
+		req:= hasura.NewRequest(`
+			mutation ($objects: [ingredients_insert_input!]!) {
+				insert_ingredients(objects: $objects) {
+					affected_rows
+				}
+			}	
+		`)
+
+		req.Var("steps",inputIngredients)
+		req.Header.Set("x-hasura-admin-secret", string(adminSecret))
+
+		var resp struct{
+			InsertIngredients struct{
+				AffectedRows int `json:"affected_rows"`
+			} `json:"insert_ingredients"`
+		}
+
+		return  Client.Run(context.Background(),req,&resp)
+
+
+	}
