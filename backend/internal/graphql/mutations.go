@@ -95,5 +95,33 @@
 		return resp.InsertRecipe,err
 	}
 	func InsertRecipeSteps(recipeId string, steps []models.StepInput) error{
-		
+		var adminSecret:= config.LoadADMINSecret()
+
+		var inputSteps []map [string]interface{}
+		for _,step := range steps{
+			inputSteps = append(inputSteps, map[string]interface{}{
+				"recipe_id":   recipeID,
+            	"step_number": step.StepNumber,
+            	"description": step.Description,
+			})
+
+		}
+		req:= hasura.NewRequest(`
+			mutation($steps:[recipe_steps_insert_input!]!){
+				insert_recipe_steps(objects:$steps){
+					affected_rows
+				}
+			}
+		`)
+
+		req.Var("steps",inputSteps)
+		req.Header.Set("x-hasura-admin-secret", string(adminSecret))
+
+		var resp struct {
+        	InsertRecipeSteps struct {
+        	    AffectedRows int `json:"affected_rows"`
+        	} `json:"insert_recipe_steps"`
+    	}
+
+		return Client.Run(context.Background(), req, &resp)
 	}
