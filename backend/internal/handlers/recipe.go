@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -45,11 +46,11 @@ if err != nil {
 	}
 	defer file.Close()
 	imageURL,err:= media.UploadImage(file,fileHeader)
-
 	if err!= nil{
-		c.JSON(http.StatusBadRequest,gin.H{"error":"Failed to upload image"})
+		c.JSON(http.StatusBadRequest,gin.H{"error":"Failed to upload image","detail": err.Error()})
 		return
 	}
+	fmt.Println("Uploaded image URL:", imageURL)
 
 	prepTime,_:= strconv.Atoi(prepTimeStr)
 	cookTime,_:= strconv.Atoi(cookTimeStr)
