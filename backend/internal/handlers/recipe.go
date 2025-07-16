@@ -91,7 +91,7 @@ if err != nil {
 	}
 	err=graphql.InsertIngredients(recipe.ID,ingredients)
 	if err !=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{"error":"failed to save steps","details":err.Error()})
+		c.JSON(http.StatusInternalServerError,gin.H{"error":"failed to save ingredients","details":err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK,gin.H{"recipe":recipe,"steps":steps,"ingredients":ingredients})
