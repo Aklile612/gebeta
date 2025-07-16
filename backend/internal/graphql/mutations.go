@@ -174,7 +174,7 @@
 			}	
 		`)
 
-		req.Var("steps",inputIngredients)
+		req.Var("objects",inputIngredients)
 		req.Header.Set("x-hasura-admin-secret", string(adminSecret))
 
 		var resp struct{
