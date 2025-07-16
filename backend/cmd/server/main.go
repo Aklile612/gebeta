@@ -27,9 +27,9 @@ func main() {
 	if graphql.Client == nil {
 		log.Fatal("❌ GraphQL client is still nil after InitClient")
 	} else {
-		fmt.Println("✅ GraphQL client initialized")
+		fmt.Println("✅ GraphQL client initialized correctly")
 	}
-	// go build -o servercmd && ./servercmd
+	// go build -o servercmd && ./servercmd 
 	router := gin.Default()
 
 	router.POST("/register", handlers.RegisterHandler)
