@@ -20,7 +20,7 @@ func RegisterHandler(c *gin.Context){
 	var req RegisterRequest
 
 	err:= c.ShouldBindJSON(&req)
-
+	
 	if err != nil{
 		c.JSON(http.StatusBadRequest,gin.H{"error":"Invalid Input"})
 		return
