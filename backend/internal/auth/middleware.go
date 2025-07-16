@@ -1,9 +1,9 @@
 package auth
 
 import (
-	
+	"fmt"
 	"net/http"
-	
+
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -15,13 +15,14 @@ const UserKey key =0
 func JWTMiddleware()gin.HandlerFunc{
 	return (func(c *gin.Context){
 		authHeader:=c.GetHeader("Authorization")
+		fmt.Println("Authorization Header:", authHeader)
 		if authHeader == ""{
 			c.JSON(http.StatusUnauthorized,gin.H{"error":"missing authorization header"})
 			c.Abort()
 			return 
 		}
 		parts:= strings.Split(authHeader," ")
-		if len(parts)!= 2 || strings.ToLower(parts[0])!= "Bearer"{
+		if len(parts)!= 2 || strings.ToLower(parts[0])!= "bearer"{
 			c.JSON(http.StatusUnauthorized,gin.H{"error":"invalid authorization header"})
 			c.Abort()
 			return
