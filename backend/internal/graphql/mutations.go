@@ -125,3 +125,7 @@
 
 		return Client.Run(context.Background(), req, &resp)
 	}
+
+	func InserComment(userID, recipeID , comment string) error {
+		
+	}
