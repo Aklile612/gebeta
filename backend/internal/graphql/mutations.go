@@ -131,7 +131,7 @@
 
 		req:= hasura.NewRequest(`
 			mutation($user_id: uuid!,$recipe_id: uuid!,$comment: String!){
-				insert_comments_one(object:{
+				insert_recipe_comments_one(object:{
 					user_id:$user_id,
 					recipe_id:$recipe_id,
 					comment:$comment
@@ -149,7 +149,7 @@
 		var resp struct{
 			InsertComment struct{
 				ID string `json:"id"`
-			} `json:"insert_comments_one"`
+			} `json:"insert_recipe_comments_one"`
 		}
 		return  Client.Run(context.Background(),req,&resp)
 	}
