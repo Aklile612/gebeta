@@ -80,5 +80,5 @@ if err != nil {
 		c.JSON(http.StatusInternalServerError,gin.H{"error":"failed to save steps","details":err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK,gin.H{"recipe":recipe})
+	c.JSON(http.StatusOK,gin.H{"recipe":recipe,"steps":steps})
 }
