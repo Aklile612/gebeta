@@ -30,6 +30,11 @@ func main() {
 		fmt.Println("✅ GraphQL client initialized correctly")
 	}
 	// go build -o servercmd && ./servercmd 
+	//du -sh ~/.cache/go-build
+	//sudo du -sh /var/log
+	// sudo journalctl --vacuum-time=3d
+	//go clean -cache -testcache -modcache
+
 	router := gin.Default()
 
 	router.POST("/register", handlers.RegisterHandler)
@@ -38,7 +43,7 @@ func main() {
 	authGroup:= router.Group("/")
 	authGroup.Use(auth.JWTMiddleware())
 	authGroup.POST("/add_recipes",handlers.AddRecipeHandler)
-
+	authGroup.POST("/comment_recipes/:id",handlers.AddComment)
 	err := router.Run(":8081")
 
 	if err != nil {
