@@ -80,5 +80,19 @@ if err != nil {
 		c.JSON(http.StatusInternalServerError,gin.H{"error":"failed to save steps","details":err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK,gin.H{"recipe":recipe,"steps":steps})
+	ingredientsJSON:= c.PostForm("ingredients")
+	var ingredients []models.IngredientInput
+
+	err= json.Unmarshal([]byte(ingredientsJSON),&ingredients)
+
+	if err!= nil{
+		c.JSON(http.StatusBadRequest,gin.H{"error":"Invalid ingredients format format","detail":err.Error()})
+		return
+	}
+	err=graphql.InsertIngredients(recipe.ID,ingredients)
+	if err !=nil{
+		c.JSON(http.StatusInternalServerError,gin.H{"error":"failed to save steps","details":err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK,gin.H{"recipe":recipe,"steps":steps,"ingredients":ingredients})
 }
