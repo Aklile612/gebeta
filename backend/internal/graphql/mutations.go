@@ -127,5 +127,29 @@
 	}
 
 	func InserComment(userID, recipeID , comment string) error {
+		adminSecret:= config.LoadADMINSecret()	
+
+		req:= hasura.NewRequest(`
+			mutation($user_id:uuid!,recipe_id:uuid!,comment:String!){
+				insert_comments_one(object:{
+					user_id:$user_id,
+					recipe_id:$recipe_id,
+					comment:$comment
+				}){
+					id	
+				}
+			}
+		`)
+
+		req.Var("user_id",userID)
+		req.Var("recipe_id",recipeID)
+		req.Var("comment",comment)
+		req.Header.Set("x-hasura-admin-secret", string(adminSecret))
 		
+		var resp struct{
+			InsertComment struct{
+				ID string `json:"id"`
+			} `json:"insert_comments_one"`
+		}
+		return  Client.Run(context.Background(),req,&resp)
 	}
