@@ -194,11 +194,11 @@
 
 		req:= hasura.NewRequest(`
 			mutation($user_id: uuid!, $recipe_id: uuid!){
-				insert_recipe_likes($likes:{
+				insert_recipe_likes_one(object:{
 					user_id: $user_id,
 					recipe_id: $recipe_id,
 				}){
-					id	
+					user_id	
 				}
 			}
 		`)
@@ -210,7 +210,7 @@
 		var resp struct{
 			InsertLike struct{
 				ID string `json:"id"`
-			} `json:"insert_recipe_likes"`
+			} `json:"insert_recipe_likes_one"`
 		}
 
 		return Client.Run(context.Background(),req,&resp)
@@ -221,11 +221,11 @@
 
 		req:= hasura.NewRequest(`
 			mutation($user_id: uuid!, $recipe_id: uuid!){
-				insert_recipe_bookmarks($bookmark:{
+				insert_recipe_bookmarks_one(object:{
 					user_id: $user_id,
 					recipe_id: $recipe_id
 				}){
-					id	
+					user_id	
 				}
 			}
 		`)
@@ -237,10 +237,15 @@
 		var resp struct{
 			InsertBookmark struct{
 				ID string `json:"id"`
-			} `json:"insert_recipe_bookmarks"`
+			} `json:"insert_recipe_bookmarks_one"`
 		}
 
 		return  Client.Run(context.Background(),req,&resp)
 
 
+	}
+
+
+	func InsertRatingByUser(userID string,recipeID string,rating int) error{
+		
 	}
