@@ -48,7 +48,7 @@ func main() {
 	authGroup.POST("/recipes/likes/:id",handlers.AddRecipeLikes)
 	authGroup.POST("/recipes/bookmark/:id",handlers.ADDRecipeBookmarks)
 	authGroup.POST("/recipes/rating/:id",handlers.AddRatingtoRecipe)
-
+	authGroup.DELETE("/recipes/likes/:id",handlers.DeleteRecipeLikehandler)
 	err := router.Run(":8081")
 
 	if err != nil {
