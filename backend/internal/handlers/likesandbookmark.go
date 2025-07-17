@@ -94,3 +94,26 @@ func AddRatingtoRecipe(c *gin.Context){
 
 	c.JSON(http.StatusOK,gin.H{"message":"recpe succesfully rated"})
 }
+
+func DeleteRecipeLikehandler(c *gin.Context){
+	recipeID := c.Param("id")
+
+	userIDInterf, exists := c.Get("user_id")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "user not found"})
+		return
+	}
+	userID, ok := userIDInterf.(string)
+	if !ok {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid user ID"})
+		return
+	}
+
+	err := graphql.DeleteRecipeLike(userID,recipeID)
+	if err != nil{
+		c.JSON(http.StatusInternalServerError,gin.H{"error":"can't unlike the recipe"})
+		return
+	}
+
+	c.JSON(http.StatusOK,gin.H{"message":"succesfully unliked recipe"})
+}
