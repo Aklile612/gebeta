@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AddComment(c *gin.Context) {
+func AddCommentHandler(c *gin.Context) {
 
 	recipeID := c.Param("id")
 
