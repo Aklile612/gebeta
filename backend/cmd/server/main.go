@@ -40,6 +40,7 @@ func main() {
 	router.POST("/register", handlers.RegisterHandler)
 	router.POST("/login",handlers.LoginHandler)
 	router.GET("/recipes", handlers.GetAllRecipesHandler)
+	router.POST("/recipes/webhook/purchase",handlers.PurchaseWebhookHandler)
 
 	authGroup:= router.Group("/")
 	authGroup.Use(auth.JWTMiddleware())
