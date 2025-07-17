@@ -60,7 +60,7 @@ func ADDRecipeBookmarks(c *gin.Context){
 
 }
 
-func AddRatingtoRecipe(c *gin.Context){
+func AddRatingtoRecipeHandler(c *gin.Context){
 	recipeID := c.Param("id")
 
 	userIDInterf, exists := c.Get("user_id")
