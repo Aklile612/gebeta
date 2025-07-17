@@ -56,6 +56,6 @@ func ADDRecipeBookmarks(c *gin.Context){
 		return
 	}
 
-	c.JSON(http.StatusOK,gin.H{"message":"the recipe liked succefully"})
+	c.JSON(http.StatusOK,gin.H{"message":"Bookmard Added succefully"})
 
 }
