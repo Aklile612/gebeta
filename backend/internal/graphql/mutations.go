@@ -247,5 +247,36 @@
 
 
 	func InsertRatingByUser(userID string,recipeID string,rating int) error{
-		
+		adminSecret:= config.LoadADMINSecret()
+
+		req:= hasura.NewRequest(`
+			mutation($user_id: uuid!, $recipe_id: uuid!, $rating: Int!){
+				insert_recipe_ratings_one(
+					object: {
+					user_id: $user_id,
+					recipe_id: $recipe_id,
+					rating: $rating
+					},
+					on_conflict: {
+						constraint: recipe_ratings_user_id_recipe_id_key,
+						update_columns: [rating]
+					}
+				){
+					recipe_id	
+				}
+			}
+		`)
+
+		req.Var("user_id", userID)
+		req.Var("recipe_id", recipeID)
+		req.Var("rating", rating)
+		req.Header.Set("x-hasura-admin-secret", string(adminSecret))
+
+		var resp struct {
+			InsertRecipeRatingsOne struct {
+				ID string `json:"id"`
+			} `json:"insert_recipe_ratings_one"`
+		}
+
+		return Client.Run(context.Background(),req,&resp)
 	}
