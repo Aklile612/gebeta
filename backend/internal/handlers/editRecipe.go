@@ -3,8 +3,10 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"github.com/aklile/recipe-backend/internal/graphql"
+	"github.com/aklile/recipe-backend/internal/media"
 	"github.com/aklile/recipe-backend/internal/models"
 	"github.com/gin-gonic/gin"
 )
@@ -24,9 +26,20 @@ func EditRecipesHandler(c *gin.Context){
 		return
 	}	
 
-	isOwner,err:= graphql.CheckRecipeOwnership(userID,recipeID)
+	jwtTokenInterf, exists := c.Get("jwt_token")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "JWT token not found"})
+		return
+	}
+	jwtToken, ok := jwtTokenInterf.(string)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Invalid JWT token"})
+		return
+	}
 
-	if err!=nil{
+	isOwner,err:= graphql.CheckRecipeOwnership(userID,recipeID,jwtToken)
+
+	if err!=nil || !isOwner{
 		c.JSON(http.StatusForbidden,gin.H{"error":"Didn't have access to edit"})
 		return
 	}
@@ -63,7 +76,7 @@ func EditRecipesHandler(c *gin.Context){
 	cookTime, _ := strconv.Atoi(cookTimeStr)
 	price, _ := strconv.ParseFloat(priceStr, 64)
 
-	err= graphql.UpdateRecipe(title, description, imageURL, difficulty, prepTime, cookTime, userID, categoryID, isPaid, price)
+	err = graphql.UpdateRecipe(recipeID, title, description, imageURL, difficulty, prepTime, cookTime, categoryID, isPaid, price,jwtToken)
 
 	if err!= nil{
 		c.JSON(http.StatusInternalServerError,gin.H{"error":"Failed to update a recipe"})
