@@ -96,3 +96,13 @@ if err != nil {
 	}
 	c.JSON(http.StatusOK,gin.H{"recipe":recipe,"steps":steps,"ingredients":ingredients})
 }
+
+func GetAllRecipesHandler(c *gin.Context) {
+	recipes, err := graphql.GetAllFullRecipes()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch recipes", "detail": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"recipes": recipes})
+}
