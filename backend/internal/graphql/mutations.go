@@ -215,3 +215,7 @@
 
 		return Client.Run(context.Background(),req,&resp)
 	}
+
+	func InsertUserRecipeBookmark() error{
+		
+	}
