@@ -45,6 +45,8 @@ func main() {
 	authGroup.Use(auth.JWTMiddleware())
 	authGroup.POST("/add_recipes",handlers.AddRecipeHandler)
 	authGroup.POST("/comment_recipes/:id",handlers.AddComment)
+	authGroup.POST("/recipes/:id/like",handlers.AddRecipeLikes)
+	
 	err := router.Run(":8081")
 
 	if err != nil {
