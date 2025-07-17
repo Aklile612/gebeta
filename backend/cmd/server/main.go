@@ -46,7 +46,8 @@ func main() {
 	authGroup.POST("/add_recipes",handlers.AddRecipeHandler)
 	authGroup.POST("/comment_recipes/:id",handlers.AddComment)
 	authGroup.POST("/recipes/:id/like",handlers.AddRecipeLikes)
-	
+	authGroup.POST("/recipes/:id/bookmark",handlers.ADDRecipeBookmarks)
+
 	err := router.Run(":8081")
 
 	if err != nil {
