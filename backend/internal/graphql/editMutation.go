@@ -41,5 +41,44 @@ func CheckRecipeOwnership(userID,recipeId string)(bool,error){
 }
 
 func UpdateRecipe(id, title, description, imageURL, difficulty string, prepTime, cookTime int, categoryID string, isPaid bool, price float64)error{
-	
+	adminSecret:= config.LoadADMINSecret()
+
+	req:= hasura.NewRequest(`
+		mutation($id: uuid!, $title: String!, $description: String!, $image_url: String, $difficulty: String!,
+		         $prep_time: Int!, $cook_time: Int!, $category_id: uuid!, $is_paid: Boolean!, $price: float8!) {
+			update_recipes_by_pk(pk_columns: {id: $id}, _set: {
+				title: $title,
+				description: $description,
+				featured_image: $image_url,
+				difficulty: $difficulty,
+				prep_time_minutes: $prep_time,
+				cook_time_minutes: $cook_time,
+				category_id: $category_id,
+				is_paid: $is_paid,
+				price: $price
+			}) {
+				id
+			}
+		}
+	`)
+	req.Var("id", id)
+	req.Var("title", title)
+	req.Var("description", description)
+	req.Var("image_url", imageURL)
+	req.Var("difficulty", difficulty)
+	req.Var("prep_time", prepTime)
+	req.Var("cook_time", cookTime)
+	req.Var("category_id", categoryID)
+	req.Var("is_paid", isPaid)
+	req.Var("price", price)
+	req.Header.Set("x-hasura-admin-secret",string(adminSecret))
+
+
+	var resp struct {
+		UpdateRecipesByPk struct {
+			ID string `json:"id"`
+		} `json:"update_recipes_by_pk"`
+	}
+
+	return Client.Run(context.Background(), req, &resp)
 }
