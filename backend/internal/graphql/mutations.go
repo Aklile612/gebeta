@@ -187,3 +187,31 @@
 
 
 	}
+
+
+	func InesrtRecipeLikes(userID,recipeID string)error{
+		adminSecret:= config.LoadADMINSecret()
+
+		req:= hasura.NewRequest(`
+			mutation($user_id: uuid!, $recipe_id: uuid!){
+				insert_recipe_likes($likes:{
+					user_id: $user_id,
+					recipe_id: $recipe_id,
+				}){
+					id	
+				}
+			}
+		`)
+
+		req.Var("user_id",userID)
+		req.Var("recipe_id",recipeID)
+		req.Header.Set("x-hasura-admin-secret", string(adminSecret))
+
+		var resp struct{
+			InsertLike struct{
+				ID string `json:"id"`
+			} `json:"insert_recipe_likes"`
+		}
+
+		return Client.Run(context.Background(),req,&resp)
+	}
