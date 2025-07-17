@@ -44,6 +44,7 @@ func main() {
 	authGroup:= router.Group("/")
 	authGroup.Use(auth.JWTMiddleware())
 	authGroup.POST("/add_recipes",handlers.AddRecipeHandler)
+	authGroup.PUT("/recipes/:id",handlers.EditRecipesHandler)
 	authGroup.POST("/comment_recipes/:id",handlers.AddCommentHandler)
 	authGroup.POST("/recipes/likes/:id",handlers.AddRecipeLikesHandler)
 	authGroup.POST("/recipes/bookmark/:id",handlers.ADDRecipeBookmarksHandler)
