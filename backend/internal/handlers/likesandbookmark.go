@@ -34,7 +34,7 @@ func AddRecipeLikes(c *gin.Context){
 }
 
 
-func ADDRecipeBookmarks(c *gin.Context){
+func ADDRecipeBookmarksHandler(c *gin.Context){
 	recipeID:= c.Param("id")
 
 	userIDInterf,exists:= c.Get("user_id")
