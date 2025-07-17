@@ -107,3 +107,27 @@ func UpdateRecipeSteps(recipeID string, steps []models.StepInput)error{
 
 	return InsertRecipeSteps(recipeID,steps)
 }
+
+func UpdateIngredients(recipeID string, ingredients []models.IngredientInput) (error){
+	adminSecret:= config.LoadADMINSecret()
+	
+	delReq:= hasura.NewRequest(`
+		mutation(recipe_id: $uuid){
+			delete_recipe_ingredients(where: {recipe_id:{_eq: $recipe_id}}){
+				affected_rows
+			}
+		}
+	`)
+
+	delReq.Var("recipe_id",recipeID)
+	delReq.Header.Set("x-hasura-admin-secret",string(adminSecret))
+
+	err:= Client.Run(context.Background(),delReq,nil)
+
+	if err!= nil{
+		return err
+	}
+
+	return InsertIngredients(recipeID,ingredients)
+
+}
