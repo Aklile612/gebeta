@@ -59,3 +59,7 @@ func ADDRecipeBookmarks(c *gin.Context){
 	c.JSON(http.StatusOK,gin.H{"message":"Bookmard Added succefully"})
 
 }
+
+func AddRatingtoRecipe(c *gin.Context){
+	
+}
