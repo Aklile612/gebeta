@@ -258,7 +258,7 @@
 					rating: $rating
 					},
 					on_conflict: {
-						constraint: recipe_ratings_user_id_recipe_id_key,
+						constraint: recipe_ratings_pkey,
 						update_columns: [rating]
 					}
 				){
@@ -274,7 +274,7 @@
 
 		var resp struct {
 			InsertRecipeRatingsOne struct {
-				ID string `json:"id"`
+				RecipeID string `json:"recipe_id"`
 			} `json:"insert_recipe_ratings_one"`
 		}
 
