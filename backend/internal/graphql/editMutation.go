@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/aklile/recipe-backend/internal/config"
+	"github.com/aklile/recipe-backend/internal/models"
 	hasura "github.com/machinebox/graphql"
 )
 
@@ -81,4 +82,28 @@ func UpdateRecipe(id, title, description, imageURL, difficulty string, prepTime,
 	}
 
 	return Client.Run(context.Background(), req, &resp)
+}
+
+func UpdateRecipeSteps(recipeID string, steps []models.StepInput)error{
+
+	adminSecret:= config.LoadADMINSecret()
+
+	delReq:= hasura.NewRequest(`
+		mutation(recipe_id: $uuid!){
+			delete_recipe_steps(where:{recipe_id:{_eq: $recipe_id}}){
+				affected_rows
+			}
+		}
+	`)
+
+	delReq.Var("recipe_id",recipeID)
+	delReq.Header.Set("x-hasura-admin-secret",string(adminSecret))
+
+
+	err:= Client.Run(context.Background(),delReq,nil)
+	if err!= nil{
+		return nil
+	}
+
+	return InsertRecipeSteps(recipeID,steps)
 }
