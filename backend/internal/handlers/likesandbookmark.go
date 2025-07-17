@@ -32,3 +32,8 @@ func AddRecipeLikes(c *gin.Context){
 	c.JSON(http.StatusOK,gin.H{"message":"the recipe liked succefully"})
 
 }
+
+
+func ADDRecipeBookmarks(c *gin.Context){
+	
+}
