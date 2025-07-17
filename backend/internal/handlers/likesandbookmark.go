@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AddRecipeLikes(c *gin.Context){
+func AddRecipeLikesHandler(c *gin.Context){
 	recipeID := c.Param("id")
 
 	userIDInterf, exists := c.Get("user_id")
