@@ -8,9 +8,9 @@ import (
 	hasura "github.com/machinebox/graphql"
 )
 
-func CheckRecipeOwnership(userID,recipeId string)(bool,error){
+func CheckRecipeOwnership(userID,recipeId,jwtToken string)(bool,error){
 
-	adminSecret:= config.LoadADMINSecret()
+	// adminSecret:= config.LoadADMINSecret()
 
 	req:= hasura.NewRequest(`
 		query($user_id: uuid!, $recipe_id: uuid!) {
@@ -21,7 +21,7 @@ func CheckRecipeOwnership(userID,recipeId string)(bool,error){
 	`)
 	req.Var("user_id",userID)
 	req.Var("recipe_id",recipeId)
-	req.Header.Set("x-hasura-admin-secret",string(adminSecret))
+	req.Header.Set("Authorization", "Bearer "+jwtToken)
 
 
 	var resp struct {
@@ -41,8 +41,8 @@ func CheckRecipeOwnership(userID,recipeId string)(bool,error){
 
 }
 
-func UpdateRecipe(id, title, description, imageURL, difficulty string, prepTime, cookTime int, categoryID string, isPaid bool, price float64)error{
-	adminSecret:= config.LoadADMINSecret()
+func UpdateRecipe(id, title, description, imageURL, difficulty string, prepTime int, cookTime int, categoryID string, isPaid bool, price float64,jwtToken string)error{
+	// adminSecret:= config.LoadADMINSecret()
 
 	req:= hasura.NewRequest(`
 		mutation($id: uuid!, $title: String!, $description: String!, $image_url: String, $difficulty: String!,
@@ -72,7 +72,7 @@ func UpdateRecipe(id, title, description, imageURL, difficulty string, prepTime,
 	req.Var("category_id", categoryID)
 	req.Var("is_paid", isPaid)
 	req.Var("price", price)
-	req.Header.Set("x-hasura-admin-secret",string(adminSecret))
+	req.Header.Set("Authorization", "Bearer "+jwtToken)
 
 
 	var resp struct {
