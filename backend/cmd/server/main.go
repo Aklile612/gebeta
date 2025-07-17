@@ -39,6 +39,7 @@ func main() {
 
 	router.POST("/register", handlers.RegisterHandler)
 	router.POST("/login",handlers.LoginHandler)
+	router.GET("/recipes", handlers.GetAllRecipesHandler)
 
 	authGroup:= router.Group("/")
 	authGroup.Use(auth.JWTMiddleware())
