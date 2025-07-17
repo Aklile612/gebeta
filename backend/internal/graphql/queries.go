@@ -46,3 +46,49 @@ func GetUserByEmail(email string)(models.User,error){
 
 	return resp.Users[0],nil
 }
+
+func GetAllFullRecipes() ([]models.FullRecipe, error) {
+	adminSecret := config.LoadADMINSecret()
+	req := hasura.NewRequest(`
+		query {
+			 recipes {
+  					  title
+  					  description
+  					  difficulty
+  					  featured_image
+  					  is_paid
+  					  prep_time_minutes
+  					  price
+  					  USERNAME {
+  					    full_name
+  					  }
+  					  commentfromuser {
+  					    comment
+  					    usercommented {
+  					      full_name
+  					    }
+  					  }
+  					  RECIPESTEPS {
+  					    step_number
+  					    description
+  					  }
+  					  RECIPECATAGORIES {
+  					    name
+  					  }
+  					  RECIPEINGREDIENTS {
+  					    name
+  					    quantity
+  					  }
+  					}
+		}
+	`)
+
+	req.Header.Set("x-hasura-admin-secret", string(adminSecret))
+
+	var resp struct {
+		Recipes []models.FullRecipe `json:"recipes"`
+	}
+
+	err := Client.Run(context.Background(), req, &resp)
+	return resp.Recipes, err
+}
