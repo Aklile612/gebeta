@@ -45,7 +45,7 @@ func main() {
 	authGroup.Use(auth.JWTMiddleware())
 	authGroup.POST("/add_recipes",handlers.AddRecipeHandler)
 	authGroup.POST("/comment_recipes/:id",handlers.AddComment)
-	authGroup.POST("/recipes/likes/:id",handlers.AddRecipeLikes)
+	authGroup.POST("/recipes/likes/:id",handlers.AddRecipeLikesHandler)
 	authGroup.POST("/recipes/bookmark/:id",handlers.ADDRecipeBookmarksHandler)
 	authGroup.POST("/recipes/rating/:id",handlers.AddRatingtoRecipeHandler)
 	authGroup.DELETE("/recipes/likes/:id",handlers.DeleteRecipeLikehandler)
