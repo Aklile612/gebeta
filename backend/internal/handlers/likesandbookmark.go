@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 
+	"github.com/aklile/recipe-backend/internal/graphql"
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,6 +22,13 @@ func AddRecipeLikes(c *gin.Context){
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "user id not valied"})
 		return
 	}
-	
+	err:= graphql.InesrtRecipeLikes(userID,recipeID)
+
+	if err!= nil{
+		c.JSON(http.StatusBadRequest,gin.H{"error":"cannot like the recipe","detail":err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK,gin.H{"message":"the recipe liked succefully"})
 
 }
