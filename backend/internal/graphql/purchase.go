@@ -59,7 +59,7 @@ func GetRecipePurchaseInfo(recipeID,requesterUserID string) (*RecipePurchaseInfo
 		query($id: uuid!){
 			recipes_by_pk(id: $id){
 				id
-				isPaid
+				is_paid
 				price
 				user_id
 			}
