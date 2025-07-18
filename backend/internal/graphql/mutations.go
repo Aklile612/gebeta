@@ -309,3 +309,35 @@
 
 		return Client.Run(context.Background(),req,&resp)
 	}
+	func InsertRecipeImages(recipeID string, imageURLs []string) error {
+		adminSecret := config.LoadADMINSecret()
+	
+		
+		var objects []map[string]interface{}
+		for _, url := range imageURLs {
+			objects = append(objects, map[string]interface{}{
+				"recipe_id": recipeID,
+				"image_url": url,
+			})
+		}
+	
+		req := hasura.NewRequest(`
+			mutation($objects: [recipe_images_insert_input!]!) {
+				insert_recipe_images(objects: $objects) {
+					affected_rows
+				}
+			}
+		`)
+	
+		req.Var("objects", objects)
+		req.Header.Set("x-hasura-admin-secret", string(adminSecret))
+	
+		var resp struct {
+			Insert struct {
+				AffectedRows int `json:"affected_rows"`
+			} `json:"insert_recipe_images"`
+		}
+	
+		return Client.Run(context.Background(), req, &resp)
+	}
+	
