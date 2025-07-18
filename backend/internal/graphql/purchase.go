@@ -95,3 +95,8 @@ func GetRecipePurchaseInfo(recipeID,requesterUserID string) (*RecipePurchaseInfo
 		OwnerUserID: resp.RecipesByPk.UserID,
 	}, nil
 }
+
+func UserHasRecipeAccess(userID,recipeID string) (bool,error){
+
+	
+}
