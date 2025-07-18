@@ -2,6 +2,7 @@ package graphql
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	"github.com/aklile/recipe-backend/internal/config"
@@ -50,7 +51,47 @@ func InsertRecipePurchase(userID, recipeID string, amount float64) error{
 	return nil
 }
 
-func GetRecipePurchaseInfo(userID,requesterUserID string) (*RecipePurchaseInfo,error){
+func GetRecipePurchaseInfo(recipeID,requesterUserID string) (*RecipePurchaseInfo,error){
 
+	adminSecret := config.LoadADMINSecret()
+
+	req:= hasura.NewRequest(`
+		query($id: uuid!){
+			recipes_by_pk(id: $id){
+				id
+				isPaid
+				price
+				user_id
+			}
+		}
+	`)
+	req.Var("id", recipeID)
+	req.Header.Set("x-hasura-admin-secret", string(adminSecret))
+
+
+	var resp struct {
+		RecipesByPk *struct {
+			ID     string  `json:"id"`
+			IsPaid bool    `json:"is_paid"`
+			Price  float64 `json:"price"`
+			UserID string  `json:"user_id"`
+		} `json:"recipes_by_pk"`
+	}
+
+	err:= Client.Run(context.Background(),req,&resp)
 	
+	if err!= nil{
+
+		return nil, fmt.Errorf("GetRecipePurchaseInfo gql error: %w", err)
+	}
+
+	if resp.RecipesByPk == nil {
+		return nil, nil
+	}
+	return &RecipePurchaseInfo{
+		ID:          resp.RecipesByPk.ID,
+		IsPaid:      resp.RecipesByPk.IsPaid,
+		Price:       resp.RecipesByPk.Price,
+		OwnerUserID: resp.RecipesByPk.UserID,
+	}, nil
 }
