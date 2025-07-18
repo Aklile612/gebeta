@@ -51,9 +51,10 @@ func main() {
 	authGroup.POST("/recipes/bookmark/:id",handlers.ADDRecipeBookmarksHandler)
 	authGroup.POST("/recipes/rating/:id",handlers.AddRatingtoRecipeHandler)
 	authGroup.DELETE("/recipes/likes/:id",handlers.DeleteRecipeLikehandler)
+	authGroup.POST("recipes/buy/:id",handlers.BuyRecipeHandler)
 	err := router.Run(":8081")
 
-	if err != nil {
+	if err != nil { 
 		log.Fatal("Failed to run the server", err)
 	}
 }
