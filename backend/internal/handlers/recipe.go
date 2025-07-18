@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
+	
 	"net/http"
 	"strconv"
 
@@ -40,29 +40,61 @@ if err != nil {
 	isPaid := c.PostForm("is_paid") == "true"
 	priceStr := c.PostForm("price")
 
-	file,fileHeader,err:= c.Request.FormFile("image")
+	form , err := c.MultipartForm()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to parse form", "detail": err.Error()})
+		return
+	}
+	files:= form.File["image"]
+	if len(files) == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "No images provided"})
+		return
+	}
+	
+	var imageURLs []string
+	for _,fileHeader := range files{
+		file,err:=fileHeader.Open()
 
-	if err!= nil{
-		c.JSON(http.StatusBadRequest,gin.H{"error":"error uploading image"})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to open image", "detail": err.Error()})
+			return
+		}
+		defer file.Close()
+
+		url, err := media.UploadImage(file, fileHeader)
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to upload image", "detail": err.Error()})
+			return
+		}
+
+		imageURLs = append(imageURLs, url)
+
+	}
+
+	if len(imageURLs)==0{
+		c.JSON(http.StatusInternalServerError,gin.H{"error":"NO image found"})
 		return
 	}
-	defer file.Close()
-	imageURL,err:= media.UploadImage(file,fileHeader)
-	if err!= nil{
-		c.JSON(http.StatusBadRequest,gin.H{"error":"Failed to upload image","detail": err.Error()})
-		return
-	}
-	fmt.Println("Uploaded image URL:", imageURL)
+	
+	featuredImage := imageURLs[0]
 
 	prepTime,_:= strconv.Atoi(prepTimeStr)
 	cookTime,_:= strconv.Atoi(cookTimeStr)
 	price,_ := strconv.ParseFloat(priceStr,64)
 
 
-	recipe,err:= graphql.InsertRecipe(title, description, imageURL, difficulty, prepTime, cookTime, userID, categoryID, isPaid, price)
+	recipe,err:= graphql.InsertRecipe(title, description, featuredImage, difficulty, prepTime, cookTime, userID, categoryID, isPaid, price)
 
 	if err!= nil{
 		c.JSON(http.StatusInternalServerError,gin.H{"error":"Failed to create a recipe"})
+		return
+	}
+
+	err = graphql.InsertRecipeImages(recipe.ID,imageURLs)
+
+	if err!= nil{
+		c.JSON(http.StatusInternalServerError,gin.H{"error":"can't save the images"})
 		return
 	}
 	stepsJson:=c.PostForm("steps")
@@ -105,7 +137,7 @@ if err != nil {
 			return
 		}
 	}
-	c.JSON(http.StatusOK,gin.H{"recipe":recipe,"steps":steps,"ingredients":ingredients})
+	c.JSON(http.StatusOK,gin.H{"recipe":recipe,"steps":steps,"ingredients":ingredients,"imageURLs":imageURLs})
 }
 
 func GetAllRecipesHandler(c *gin.Context) {
