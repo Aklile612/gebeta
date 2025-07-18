@@ -9,6 +9,13 @@ import (
 )
 
 
+type RecipePurchaseInfo struct {
+	ID          string
+	IsPaid      bool
+	Price       float64
+	OwnerUserID string
+}
+
 func InsertRecipePurchase(userID, recipeID string, amount float64) error{
 	adminSecret:= config.LoadADMINSecret()
 
@@ -41,4 +48,9 @@ func InsertRecipePurchase(userID, recipeID string, amount float64) error{
 	}
 	log.Println("Added to the recipe purshase table")
 	return nil
+}
+
+func GetRecipePurchaseInfo(userID,requesterUserID string) (*RecipePurchaseInfo,error){
+
+	
 }
