@@ -94,6 +94,17 @@ if err != nil {
 		c.JSON(http.StatusInternalServerError,gin.H{"error":"failed to save ingredients","details":err.Error()})
 		return
 	}
+
+	if isPaid{
+		err= graphql.InsertRecipePurchase(userID,recipe.ID,price)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error":  "Failed to record initial recipe purchase",
+				"detail": err.Error(),
+			})
+			return
+		}
+	}
 	c.JSON(http.StatusOK,gin.H{"recipe":recipe,"steps":steps,"ingredients":ingredients})
 }
 
