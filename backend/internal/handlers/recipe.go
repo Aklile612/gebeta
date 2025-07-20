@@ -73,7 +73,7 @@ if err != nil {
 	}
 
 	if len(imageURLs)==0{
-		c.JSON(http.StatusInternalServerError,gin.H{"error":"NO image found"})
+		c.JSON(http.StatusInternalServerError,gin.H{"error":"No image found"})
 		return
 	}
 	
