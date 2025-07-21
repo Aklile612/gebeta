@@ -1,10 +1,10 @@
 <script setup>
-import { Search } from '#components';
+import { Search,FeaturedRecipe } from '#components';
 </script>
 
 
 <template>
-  <div>
+  <div class="pt-[70px]">
 
     <!-- // hero section -->
     <div  class="hero min-h-screen" style="background-image: url('/image/hero2.png');">
@@ -22,6 +22,9 @@ import { Search } from '#components';
 
     <!-- search and catagories -->
     <div><search/></div>
+
+    <!-- featured recipes -->
+    <div><FeaturedRecipe/></div>
   </div>
    
 
