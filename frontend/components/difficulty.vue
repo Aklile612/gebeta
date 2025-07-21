@@ -10,24 +10,22 @@ import {
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 
 const people = [
-  { name: 'Wade Cooper' },
-  { name: 'Arlene Mccoy' },
-  { name: 'Devon Webb' },
-  { name: 'Tom Cook' },
-  { name: 'Tanya Fox' },
-  { name: 'Hellen Schmidt' },
+    { name: 'Easy' },
+    { name: 'Medium' },
+    { name: 'Hard' },
+  
 ]
-const selectedPerson = ref(people[0])
+const selectedPerson = ref(null)
 </script>
 
 <template>
-    <div class="fixed top-16 w-72">
+    <div class=" w-72">
       <Listbox v-model="selectedPerson">
-        <div class="relative mt-1">
+        <div class="relative mt-2">
           <ListboxButton
-            class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+            class="relative w-full cursor-default rounded-lg bg-slate-300 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
           >
-            <span class="block truncate">{{ selectedPerson.name }}</span>
+            <span class="block truncate">{{ selectedPerson?.name || 'Difficulty' }}</span>
             <span
               class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
             >
@@ -55,7 +53,7 @@ const selectedPerson = ref(people[0])
               >
                 <li
                   :class="[
-                    active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
+                    active ? 'bg-orange-300 text-amber-900' : 'text-gray-900',
                     'relative cursor-default select-none py-2 pl-10 pr-4',
                   ]"
                 >
