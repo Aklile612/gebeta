@@ -1,13 +1,45 @@
+<script setup>
+
+const route= useRoute()
+
+</script>
+
+
 <template>
     <header>
-        <div class="navbar bg-base-200 shadow-sm">
+        <div class="navbar bg-[#FFFEFC] shadow-sm">
         <div class="flex-1">
-          <NuxtLink to="/" class="text-white  text-xl">Gebta</NuxtLink>
+          <NuxtLink to="/" class="ml-4 btn  font-bold hover:w-[80px] hover:border-white-[1px]  text-xl">Gebeta </NuxtLink>
           
         </div>
   <div class="flex gap-2">
-    <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
-    <div class="dropdown dropdown-end">
+    <!-- <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" /> -->
+     <div class="flex gap-6 mr-20 md:mt-2 text-lg">
+    <NuxtLink
+      to="/"
+      class="nav-link"
+      :class="{ 'active-link': route.path === '/recipe' }"
+    >Recipes</NuxtLink>
+
+    <button
+      class="btn btn-dash btn-secondary border-orange-300 hover:bg-orange-500 hover:text-black text-orange-400"
+    >
+      Create Recipe
+    </button>
+
+    <NuxtLink
+      to="/categories"
+      class="nav-link"
+      :class="{ 'active-link': route.path === '/categories' }"
+    >Categories</NuxtLink>
+
+    <NuxtLink
+      to="/creators"
+      class="nav-link"
+      :class="{ 'active-link': route.path === '/creators' }"
+    >Creators</NuxtLink>
+  </div>
+    <div class="dropdown dropdown-end mr-5">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
           <img
@@ -17,19 +49,35 @@
       </div>
       <ul
         tabindex="0"
-        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <li>
+        class="menu menu-sm dropdown-content bg-orange-300  rounded-box z-1 mt-3 w-52 p-2 shadow">
+        <li class="hover:bg-orange-600 rounded-box">
           <a class="justify-between">
             Profile
-            <span class="badge">New</span>
           </a>
         </li>
-        <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        <li class="hover:bg-orange-600 rounded-box"><a>Settings</a></li>
+        <li class="hover:bg-orange-600 rounded-box"><a>Logout</a></li>
       </ul>
     </div>
   </div>
 </div>
     </header>
 </template>
-  
+<style scoped>
+.nav-link {
+  @apply relative text-sm md:mt-1 font-bold transition-all duration-300;
+}
+
+.nav-link::after {
+  content: '';
+  @apply absolute left-0 bottom-[-1px] w-full h-[3px] bg-orange-500 opacity-0 transition-all duration-100;
+}
+
+.nav-link:hover::after {
+  opacity: 100;
+}
+
+.active-link::after {
+  @apply absolute left-0 bottom-[-1px] w-full h-[3px] bg-orange-700 blur-[1px] opacity-100;
+}
+</style>
