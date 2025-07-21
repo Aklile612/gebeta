@@ -11,7 +11,9 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/icon',
     '@nuxt/fonts',
-    '@nuxtjs/tailwindcss', // ✅ Tailwind module handles everything
+    // ✅ Tailwind module handles everything
+    '@nuxtjs/tailwindcss',
+    'nuxt-lucide-icons',
   ],
   vite: {
     plugins: [tsconfigPaths()],
