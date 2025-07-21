@@ -18,6 +18,9 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tsconfigPaths()],
   },
+  lucide: {
+    namePrefix: 'Icon'
+  },
   compatibilityDate: '2025-07-21',
   devtools: { enabled: true },
 })
