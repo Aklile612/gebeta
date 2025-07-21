@@ -7,7 +7,7 @@ const route= useRoute()
 
 <template>
     <header>
-        <div class="navbar bg-[#FFFEFC] shadow-sm">
+        <div class="navbar bg-[#FFFEFC] shadow-lg z-10  shadow-black">
         <div class="flex-1">
           <NuxtLink to="/" class="ml-4 btn  font-bold hover:w-[80px] hover:border-white-[1px]  text-xl">Gebeta </NuxtLink>
           
