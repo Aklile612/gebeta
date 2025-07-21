@@ -8,32 +8,36 @@ import {
   ComboboxOption,
   TransitionRoot,
 } from '@headlessui/vue'
-
+import difficulty from './difficulty.vue'
 import { ChevronUpDownIcon, CheckIcon } from '@heroicons/vue/20/solid' // or lucide icons
 
 // Example categories, replace with real data from your backend or API
-const categories = [
+const categories = ref([
   { id: 1, name: 'Breakfast' },
   { id: 2, name: 'Lunch' },
   { id: 3, name: 'Dinner' },
   { id: 4, name: 'Dessert' },
   { id: 5, name: 'Snacks' },
-]
+])
 
-const selectedCategory = ref(categories[0])
+const selectedCategory = ref(null) // ✅ correct use of ref
 const query = ref('')
 
 const filteredCategories = computed(() => {
-  if (!query.value) return categories
-  return categories.filter(category =>
+  if (!query.value) return categories.value
+  return categories.value.filter(category =>
     category.name.toLowerCase().includes(query.value.toLowerCase())
   )
 })
+watch(query, (val) => console.log("🔍 query updated:", val))
+watch(filteredCategories, (val) => console.log("📦 filtered:", val))
+watch(selectedCategory, (val) => console.log("✅ selected:", val))
+
 </script>
 <template>
 <div class="flex justify-center gap-10">
-    <div>
-      <label class="input my-20 bg-white border-black">
+    <div class="my-10">
+      <label class="input  bg-white border-black">
       <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <g stroke-linejoin="round"
             stroke-linecap="round"
@@ -51,9 +55,9 @@ const filteredCategories = computed(() => {
       </label>
     </div>
     
-    <div class="my-7">
-        <p class="my-3 ml-20 font-serif">All catagories</p>
-        <div class=" bg-white mt-4 w-72">
+    <div class=" flex mt-2 gap-6 ">
+        <!-- <p class="my-3 ml-20 font-serif">All catagories</p> -->
+        <div class=" bg-white mt-8 w-72">
             <Combobox v-model="selectedCategory">
             <div class="relative mt-1">
             <div class="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm"
@@ -61,8 +65,8 @@ const filteredCategories = computed(() => {
             <ComboboxInput
               placeholder="Select a category"
                 class="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 bg-slate-300 focus:ring-0"
-                :displayValue="category => category.name"
-                v-model="query"
+                :displayValue="(category) => category?.name || ''"
+                 @input="event => query.value = event.target.value"
                 
             />
             <ComboboxButton
@@ -122,7 +126,10 @@ const filteredCategories = computed(() => {
             </TransitionRoot>
         </div>
         </Combobox>
-    </div>
+        </div>
+        <div class="mt-7">
+            <difficulty/>
+        </div>
     </div>
 </div>
 
