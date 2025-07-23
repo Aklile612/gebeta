@@ -41,24 +41,24 @@
     <form @submit.prevent="handleLogin" class="w-full">
       <fieldset class="bg-[#fae3cd]   w-[40vw] p-6 ">
         <!-- Removed fieldset style classes that gave dark bg -->
-        <label class="label text-lg" for="email">Enter Your Email</label>
+        <label class="label text-lg" for="email"></label>
         <div class="relative mb-4">
           <input
             id="email"
             type="email"
-            class="input input-bordered bg-white w-full pl-10"
-            placeholder="Enter Your Email"
+            class="input input-bordered bg-white  h-10 pl-10  w-[300px] rounded-[6px]   text-white placeholder-text-gray-500 placeholder:text-xs"
+            placeholder="Email"
             v-model="email"
           />
           <IconMail class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
         </div>
 
-        <label class="label text-lg" for="password">Password</label>
+        <label class="label text-lg" for="password"></label>
         <div class="relative mb-4">
           <input
             id="password"
             type="password"
-            class="input input-bordered bg-white w-full pl-10"
+            class="input input-bordered bg-white  h-10 pl-10  w-[300px] rounded-[6px]   text-white placeholder-text-gray-500 placeholder:text-xs"
             placeholder="Password"
             v-model="password"
           />
@@ -67,7 +67,7 @@
 
         <button
           type="submit"
-          class="btn bg-orange-500 hover:bg-orange-600 text-white w-full mt-4 -mb-2 "
+          class=" bg-orange-500 hover:bg-orange-600 text-white flex justify-center items-center group hover:scale-110 ease-out transition-all w-[300px] h-12  text-center  text-sm  font-semibold rounded-[6px]"
         >
           Login
         </button>
