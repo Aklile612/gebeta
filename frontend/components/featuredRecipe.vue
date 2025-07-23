@@ -17,51 +17,41 @@
             <p class="text-lg font-semibold ml-5 text-gray-500 -mt-2">Discover the most loved recipe from the community</p>
         </div>
         <div class="ml-10 flex gap-10 mt-12">
-            <div class="card card-md bg-white w-80 h-auto shadow-sm rounded-xl overflow-hidden">
-                <!-- Image -->
-                <figure class="p-3">
-                  <img
-                    class="w-full h-[180px] object-cover rounded-lg"
-                    src="/image/hero.png"
-                    alt="food image"
-                  />
-                </figure>
-            
-                <!-- Body -->
-                <div class="card-body p-4 pt-2">
-                
-                  <!-- Top Row: Rating -->
-                  <div class="flex items-center gap-1 text-sm text-yellow-500">
-                    <IconStar class="w-4 h-4" />
-                    <span class="text-xs font-medium">4.5</span>
-                  </div>
-              
-                  <!-- Title + Badge -->
-                  <div class="flex items-center justify-between mt-1">
-                    <h2 class="text-md font-bold text-gray-800">Creamy Truffle Pasta</h2>
-                    <span class="badge badge-warning text-[10px]">Premium</span>
-                  </div>
-              
-                  <!-- Description -->
-                  <p class="text-sm text-gray-600 mt-1">
-                    A rich and indulgent pasta dish with truffle cream sauce
-                  </p>
-              
-                  <!-- Footer Row: User + Time -->
-                  <div class="flex items-center justify-between mt-4 text-xs text-gray-500">
-                    <div class="flex items-center gap-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 12c2.2 0 4-1.8 4-4S14.2 4 12 4 8 5.8 8 8s1.8 4 4 4zm0 2c-2.7 0-8 1.3-8 4v2h16v-2c0-2.7-5.3-4-8-4z"/>
-                      </svg>
-                      <span>By User</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                      <IconClock9 class="w-4 h-4" />
-                      <span>29 min</span>
-                    </div>
-                  </div>
-                </div>
-            </div>
+            <div class="card card-md bg-white w-96 h-[60vh] shadow-sm">
+  <figure>
+    <img
+      class="w-full h-[180px] object-cover"
+      src="/image/hero.png"
+      alt="food image"
+    />
+  </figure>
+  <div class="card-body py-3 px-4">
+    <!-- Top row: star rating and premium badge -->
+    <div class="flex justify-between items-center text-sm">
+      <div class="flex items-center text-yellow-400 gap-1">
+        <IconStar class="w-4 h-4" />
+        <span>4.8</span>
+      </div>
+      <div class="badge badge-warning text-[10px]">Premium</div>
+    </div>
+
+    <!-- Title -->
+    <h2 class="text-base font-semibold mt-1">Creamy Truffle Pasta</h2>
+
+    <!-- Description -->
+    <p class="text-sm text-gray-600 mt-1">
+      A rich and indulgent pasta dish with truffle cream sauce.
+    </p>
+
+    <!-- Footer: user and time -->
+    <div class="flex items-center justify-start text-xs mt-3 gap-2">
+      <IconUsers class="w-4 h-4 text-gray-500" />
+      <span class="text-gray-500">By User</span>
+      <IconClock9 class="w-4 h-4 text-gray-500 ml-4" />
+      <span class="text-gray-500">29 min</span>
+    </div>
+  </div>
+</div>
 
             <div class="card card-md bg-white w-96 h-[65vh] rounded-md shadow-sm">
                 <figure>
