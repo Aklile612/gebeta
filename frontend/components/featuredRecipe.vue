@@ -17,9 +17,9 @@
             <p class="text-lg font-semibold ml-5 text-gray-500 -mt-2">Discover the most loved recipe from the community</p>
         </div>
         <div class="ml-10 flex gap-10 mt-12">
-            <div class="card card-md bg-white w-80 h-auto shadow-sm rounded-xl overflow-hidden">
+            <div class="card card-md bg-white w-80 h-100 shadow-sm rounded-xl overflow-hidden">
                 <!-- Image -->
-                <figure class="p-3">
+                <figure class="">
                   <img
                     class="w-full h-[180px] object-cover rounded-lg"
                     src="/image/hero.png"
@@ -48,11 +48,9 @@
                   </p>
               
                   <!-- Footer Row: User + Time -->
-                  <div class="flex items-center justify-between mt-4 text-xs text-gray-500">
+                  <div class="flex items-center justify-between mt-1 text-xs text-gray-500">
                     <div class="flex items-center gap-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 12c2.2 0 4-1.8 4-4S14.2 4 12 4 8 5.8 8 8s1.8 4 4 4zm0 2c-2.7 0-8 1.3-8 4v2h16v-2c0-2.7-5.3-4-8-4z"/>
-                      </svg>
+                        <IconUsers class="w-4 h-4 text-gray-500" />
                       <span>By User</span>
                     </div>
                     <div class="flex items-center gap-1">
