@@ -39,26 +39,38 @@
 
     <!-- Form -->
     <form @submit.prevent="handleLogin" class="w-full">
-      <fieldset class="bg-[#fae3cd]   w-[35vw] p-6 mx-5">
+      <fieldset class="bg-[#fae3cd]   w-[300px] p-6 mx-5">
         <!-- Removed fieldset style classes that gave dark bg -->
-        <label class="label text-lg" for="email">Email</label>
+        <label class="label text-lg" for="fullname"></label>
+        <div class="relative mb-4">
+          <input
+            id="fullname"
+            type="fullname"
+            class="input input-bordered bg-white w-full h-10 "
+            placeholder="Full Name"
+            v-model="fullname"
+          />
+          
+          <IconUser class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+        </div>
+        <label class="label text-lg" for="email"></label>
         <div class="relative mb-4">
           <input
             id="email"
             type="email"
-            class="input input-bordered bg-white w-full pl-10"
+            class="input input-bordered bg-white w-full h-10"
             placeholder="Email"
             v-model="email"
           />
           <IconMail class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
         </div>
 
-        <label class="label text-lg" for="password">Password</label>
+        <label class="label text-lg" for="password"></label>
         <div class="relative mb-4">
           <input
             id="password"
             type="password"
-            class="input input-bordered bg-white w-full pl-10"
+            class="input input-bordered bg-white w-full h-10"
             placeholder="Password"
             v-model="password"
           />
