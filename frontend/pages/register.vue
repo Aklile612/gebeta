@@ -10,10 +10,10 @@
     <!-- image background -->
     <div class="hero w-1/2 min-h-screen bg-no-repeat bg-center bg-cover" style="background-image: url('/image/register.png');">
       <div class="flex flex-col justify-end items-center text-neutral-content w-full h-full pb-10 text-center">
-        <div class="font-bold max-w-lg">
-          <div class=" w-8 h-8"><IconUtensils/></div>
-          <p class="mt-3 mb-5 w-full font-bold text-2xl">Every Recipe Has a Story <div class="border-t-2 border-white w-7"></div> <br> Share yours</p>
-          <p class="mb-5  text-lg">Join Thousends of food Lovers creating and sharing there favorite recipe</p>
+        <div class="font-bold max-w-fit">
+          <div class=" w-8 h-8 ml-7"><IconUtensils/></div>
+          <p class="mt-3 mb-7 font-bold text-2xl">Every Recipe Has a Story <div class="border-t-3 border-white w-7"></div> Share <br>  yours</p>
+          <p class="mb-7  text-sm ">Join Thousends of food Lovers creating and sharing there favorite recipe</p>
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@
     <!-- Icon + Gebeta Name -->
     <div class="flex flex-col items-center">
       <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center shadow-md">
-        <IconUtensils class="text-white ml-10 w-8 h-8" />
+        <IconUtensils class="text-white  w-8 h-8" />
       </div>
       <p class="text-2xl mt-4 font-mono font-bold">Gebeta</p>
       <p class="text-sm text-gray-600">Recipe Sharing Community</p>
@@ -39,7 +39,7 @@
     </div>
 
     <!-- Form -->
-    <form @submit.prevent="handleLogin" class="w-full">
+    <form @submit.prevent="handleLogin" class="w-full -mt-3">
       <fieldset class="bg-[#fae3cd]   w-[370px] p-6 mx-5">
         <!-- Removed fieldset style classes that gave dark bg -->
         <label class="label text-lg" for="fullname"></label>
@@ -47,7 +47,7 @@
           <input
             id="fullname"
             type="fullname"
-            class="input input-bordered bg-white  h-10   w-[300px] rounded-[6px]   text-white placeholder-text-gray-500 placeholder:text-xs "
+            class="input input-bordered bg-white  h-10 pl-10  w-[300px] rounded-[6px]   text-white placeholder-text-gray-500 placeholder:text-xs "
             placeholder="Full Name"
             v-model="fullname"
           />
@@ -59,7 +59,7 @@
           <input
             id="email"
             type="email"
-            class="input input-bordered bg-slate-400  h-10   w-[300px] rounded-[6px]  text-white placeholder-text-gray-500 placeholder:text-xs"
+            class="input input-bordered bg-white  h-10 pl-10  w-[300px] rounded-[6px]   text-white placeholder-text-gray-500 placeholder:text-xs"
             placeholder="Email"
             v-model="email"
           />
@@ -71,7 +71,7 @@
           <input
             id="password"
             type="password"
-            class="input input-bordered bg-white w-full h-10"
+            class="input input-bordered bg-white  h-10 pl-10  w-[300px] rounded-[6px]   text-white placeholder-text-gray-500 placeholder:text-xs"
             placeholder="Password"
             v-model="password"
           />
