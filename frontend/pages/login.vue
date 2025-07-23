@@ -39,7 +39,7 @@
 
     <!-- Form -->
     <form @submit.prevent="handleLogin" class="w-full">
-      <fieldset class="bg-[#fae3cd]   w-[40vw] p-6 ">
+      <fieldset class="bg-[#fae3cd]   w-[40vw] mx-6 p-6 ">
         <!-- Removed fieldset style classes that gave dark bg -->
         <label class="label text-lg" for="email"></label>
         <div class="relative mb-4">
