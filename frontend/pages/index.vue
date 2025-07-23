@@ -1,5 +1,5 @@
 <script setup>
-import { Search,FeaturedRecipe } from '#components';
+import { Search,FeaturedRecipe,AvatarUser } from '#components';
 </script>
 
 
@@ -25,6 +25,10 @@ import { Search,FeaturedRecipe } from '#components';
 
     <!-- featured recipes -->
     <div><FeaturedRecipe/></div>
+
+    <!-- user avatar  -->
+
+    <div><AvatarUser/></div>
   </div>
    
 
