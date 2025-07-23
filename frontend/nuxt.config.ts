@@ -23,7 +23,7 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2025-07-21',
   devtools: { enabled: true },
-  ssr: false,
+  ssr: true,
   app: {
     baseURL: '/',
   },
