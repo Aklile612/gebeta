@@ -33,6 +33,7 @@
                     
                     </h2>
                     <p>A rich and indulgent pata dish with truffle cream sauce</p>
+                    <div><IconClock9 /></div>
                     <div class="card-actions justify-end">
                     
                     </div>
