@@ -10,7 +10,7 @@ const route= useRoute()
       <div class="navbar fixed top-0 left-0 w-full bg-transparent backdrop-blur-md z-50 transition-all duration-300">
         <div class="flex-1 gap-2 items-center hover:bg-slate-200 w-[30px] flex-row ">
           <div class="text-orange-500 font-bold w-5 h-5 rounded-sm bg-white"><IconUtensils /></div>
-          <div class="text-lg font-mono ">Gebeta</div>
+          <div class="text-lg font-mono ">Gebeta1</div>
         </div>
   <div class="flex gap-2">
     <!-- <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" /> -->

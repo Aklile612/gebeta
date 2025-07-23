@@ -16,7 +16,7 @@
             <h1 class="mb-5 text-4xl ml-[7vw] font-serif  font-bold">Featured Recipes</h1>
             <p class="text-lg font-semibold ml-5 text-gray-500 -mt-2">Discover the most loved recipe from the community</p>
         </div>
-        <div class="ml-10 flex gap-10 mt-12">
+        <div class="ml-10 flex gap-10 justify-center  mt-12">
             <div class="card card-md bg-white w-80 h-[55vh] shadow-sm rounded-xl overflow-hidden">
                 <!-- Image -->
                 <figure>
