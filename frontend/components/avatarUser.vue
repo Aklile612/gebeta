@@ -11,14 +11,14 @@
         </div>
         <div class="w-[300px] h-[200px] bg-[#fae3cd] rounded-[5px]">
             <div class="avatar">
-              <div class="ring-primary ring-offset-base-100 w-15 rounded-full ring-2 ring-offset-2">
+              <div class="ring-primary ring-offset-base-100 w-30 rounded-full ring-2 ring-offset-2">
                 <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
               </div>
             </div>
             <div class="mt-2 ">
                 <p class="font-bold text-sm">Alana Germy</p>
 
-                <button class="btn btn-soft btn-warning hover:bg-orange-500">View Recipes</button>
+                <button class="btn bg-orange-300 rounded-md btn-soft btn-warning hover:bg-orange-500">View Recipes</button>
             </div>
         </div>
 
