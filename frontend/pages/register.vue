@@ -33,7 +33,7 @@
     </div>
 
     <!-- Welcome Text -->
-    <div class="text-center">
+    <div class="text-center mb-3">
       <p class="text-3xl font-bold">Create Your Account</p>
       <p class=" text-sm">Start Your Curlinary Journey today</p>
     </div>
@@ -47,19 +47,19 @@
           <input
             id="fullname"
             type="fullname"
-            class="input input-bordered bg-white  h-10 pl-10  w-[300px] rounded-[6px]   text-white placeholder-text-gray-500 placeholder:text-xs "
+            class="input input-bordered bg-white  h-10 pl-10  w-[300px] rounded-[6px]   text-black placeholder-text-gray-500 placeholder:text-xs "
             placeholder="Full Name"
             v-model="fullname"
           />
           
-          <IconUser class="absolute left-7 top-1/2 transform -translate-y-1/2 text-gray-500" />
+          <IconUser class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
         </div>
         <label class="label text-lg" for="email"></label>
         <div class="relative mb-4">
           <input
             id="email"
             type="email"
-            class="input input-bordered bg-white  h-10 pl-10  w-[300px] rounded-[6px]   text-white placeholder-text-gray-500 placeholder:text-xs"
+            class="input input-bordered bg-white  h-10 pl-10  w-[300px] rounded-[6px]   text-black placeholder-text-gray-500 placeholder:text-xs"
             placeholder="Email"
             v-model="email"
           />
@@ -71,13 +71,13 @@
           <input
             id="password"
             type="password"
-            class="input input-bordered bg-white  h-10 pl-10  w-[300px] rounded-[6px]   text-white placeholder-text-gray-500 placeholder:text-xs"
+            class="input input-bordered bg-white  h-10 pl-10  w-[300px] rounded-[6px]   text-black placeholder-text-gray-500 placeholder:text-xs"
             placeholder="Password"
             v-model="password"
           />
           <IconLock class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
         </div>
-        <label class="flex items-center gap-2 whitespace-nowrap text-sm">
+        <label class="flex items-center gap-2 mb-2 whitespace-nowrap text-sm">
           <input type="checkbox" class="checkbox checked:bg-orange-500 bg-white" />
           <span>
             I agree to the
