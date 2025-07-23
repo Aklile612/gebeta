@@ -8,9 +8,8 @@ const route= useRoute()
 <template>
     <header>
       <div class="navbar fixed top-0 left-0 w-full bg-transparent backdrop-blur-md z-50 transition-all duration-300">
-        <div class="flex-1 gap-2 hover:bg-slate-200 w-[100px] flex-row ">
-          <!-- <NuxtLink to="/" class="ml-4 btn  font-bold hover:w-[80px] hover:border-white-[1px]  text-xl">Gebeta </NuxtLink> -->
-          <div class="text-orange-500 font-bold w-3 h-3"><IconUtensils /></div>
+        <div class="flex-1 gap-2 items-center hover:bg-slate-200 w-[30px] flex-row ">
+          <div class="text-orange-500 font-bold w-5 h-5 rounded-sm bg-white"><IconUtensils /></div>
           <div class="text-lg font-mono ">Gebeta</div>
         </div>
   <div class="flex gap-2">
