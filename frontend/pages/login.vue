@@ -47,7 +47,7 @@
             id="email"
             type="email"
             class="input input-bordered bg-white w-full pl-10"
-            placeholder="Email"
+            placeholder="Enter Your Email"
             v-model="email"
           />
           <IconMail class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
@@ -67,7 +67,7 @@
 
         <button
           type="submit"
-          class="btn bg-orange-500 hover:bg-orange-600 text-white w-full mt-2"
+          class="btn bg-orange-500 hover:bg-orange-600 text-white w-full mt-4 -mb-2 "
         >
           Login
         </button>
@@ -78,7 +78,7 @@
     <div>
       <NuxtLink to="/register">
         <span class="font-semibold ">New Here?</span>
-        <span class="text-range-500 font-semibold hover:underline">Create an account</span>
+        <span class="text-orange-500 font-semibold hover:underline">Create an account</span>
       </NuxtLink>
     </div>
   </div>
