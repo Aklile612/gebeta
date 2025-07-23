@@ -22,11 +22,11 @@
     <!-- Optional Other Side -->
         <!-- Right Side (Form) -->
         <div class="w-1/2 bg-[#fae3cd] flex items-center justify-center">
-  <div class="flex flex-col items-center space-y-6 -mt-3"> 
+  <div class="flex flex-col items-center space-y-6 -mt-4"> 
     <!-- Icon + Gebeta Name -->
     <div class="flex flex-col items-center">
       <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center shadow-md">
-        <IconUtensils class="text-white w-8 h-8" />
+        <IconUtensils class="text-white ml-10 w-8 h-8" />
       </div>
       <p class="text-2xl mt-4 font-mono font-bold">Gebeta</p>
       <p class="text-sm text-gray-600">Recipe Sharing Community</p>
@@ -59,7 +59,7 @@
           <input
             id="email"
             type="email"
-            class="input input-bordered bg-white  h-10   w-[300px] rounded-[6px]  text-white placeholder-text-gray-500 placeholder:text-xs"
+            class="input input-bordered bg-slate-400  h-10   w-[300px] rounded-[6px]  text-white placeholder-text-gray-500 placeholder:text-xs"
             placeholder="Email"
             v-model="email"
           />
@@ -78,7 +78,7 @@
           <IconLock class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
         </div>
         <div class="flex gap-2">
-          <input type="checkbox" checked="checked" class="checkbox checked:bg-orange-500 bg-white " />
+          <input type="checkbox" checked="unchecked" class="checkbox checked:bg-orange-500 bg-white " />
           <div>I agree to the <span class="text-orange-500 hover:underline">Terms of service</span> and <span class="text-orange-500 hover:underline ">privacy policy</span></div>
         </div>
         <button
