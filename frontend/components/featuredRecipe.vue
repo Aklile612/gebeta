@@ -49,9 +49,12 @@
                     <h2 class="card-title">
                         chocklet berry cake
                     </h2>
-                    <div class="text-yellow-400 text-[10px]"  ><IconStar/></div>
-                    <p>Decdent berry cake toked with berry cakes
-                    </p>
+                    <div class="flex">
+
+                        <div class="text-yellow-400 text-[10px]"  ><IconStar/></div>
+                        <p>Decdent berry cake toked with berry cakes
+                        </p>
+                    </div>
                     <div class="card-actions justify-end">
                     
                     </div>
