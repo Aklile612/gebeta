@@ -12,7 +12,7 @@
       <div class="flex flex-col justify-end items-center text-neutral-content w-full h-full pb-10 text-center">
         <div class="font-bold max-w-lg">
           <div class=" w-8 h-8"><IconUtensils/></div>
-          <p class="mt-3 mb-5 w-full font-bold text-2xl">Every Recipe Has a Story <div class="border-t-2 border-white "></div> <br> Share yours</p>
+          <p class="mt-3 mb-5 w-full font-bold text-2xl">Every Recipe Has a Story <div class="border-t-2 border-white w-7"></div> <br> Share yours</p>
           <p class="mb-5  text-lg">Join Thousends of food Lovers creating and sharing there favorite recipe</p>
         </div>
       </div>
@@ -22,7 +22,7 @@
     <!-- Optional Other Side -->
         <!-- Right Side (Form) -->
         <div class="w-1/2 bg-[#fae3cd] flex items-center justify-center">
-  <div class="flex flex-col items-center space-y-6 mt-3"> 
+  <div class="flex flex-col items-center space-y-6 -mt-3"> 
     <!-- Icon + Gebeta Name -->
     <div class="flex flex-col items-center">
       <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center shadow-md">
@@ -47,7 +47,7 @@
           <input
             id="fullname"
             type="fullname"
-            class="input input-bordered bg-white w-full h-10 "
+            class="input input-bordered bg-white  h-10   w-[300px] rounded-[6px]   text-white placeholder-text-gray-500 placeholder:text-xs "
             placeholder="Full Name"
             v-model="fullname"
           />
@@ -59,7 +59,7 @@
           <input
             id="email"
             type="email"
-            class="input input-bordered bg-white w-full h-10"
+            class="input input-bordered bg-white  h-10   w-[300px] rounded-[6px]  text-white placeholder-text-gray-500 placeholder:text-xs"
             placeholder="Email"
             v-model="email"
           />
