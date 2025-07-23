@@ -27,7 +27,10 @@
                 <div class="card-body ">
                     <h2 class="card-title">
                     Creamy Truffle Pasta
-                    <div class="badge badge-warning">Premimum</div>
+                    
+                        <div class="badge badge-warning">Premimum</div>
+                        <div class="text-yellow-400 text-[10px]  "><IconStar/></div>
+                    
                     </h2>
                     <p>A rich and indulgent pata dish with truffle cream sauce</p>
                     <div class="card-actions justify-end">
@@ -42,11 +45,11 @@
                     src="/image/cake1.png"
                     alt="food image" />
                 </figure>
-                <div class="card-body ">
+                <div class="card-body flex justify-between">
                     <h2 class="card-title">
-                    chocklet berry cake
-                    <div class="badge badge-accent">Free</div>
+                        chocklet berry cake
                     </h2>
+                    <div class="text-yellow-400 text-[10px]"  ><IconStar/></div>
                     <p>Decdent berry cake toked with berry cakes
                     </p>
                     <div class="card-actions justify-end">
@@ -64,7 +67,7 @@
                 <div class="card-body ">
                     <h2 class="card-title">
                     Rainbow Buddha Bowl
-                    <div class="badge badge-accent">Free</div>
+                    <div class="text-yellow-400 text-[10px]  "><IconStar/></div>
                     </h2>
                     <p>Nutrstios and colorfull bowl packed with fresh ingredients</p>
                     <div class="card-actions justify-end">
