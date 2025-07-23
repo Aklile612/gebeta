@@ -20,7 +20,7 @@
   
     <!-- Optional Other Side -->
         <!-- Right Side (Form) -->
-        <div class="w-1/2 bg-white flex items-center justify-center">
+        <div class="w-1/2 bg-[#fae3cd] flex items-center justify-center">
   <div class="flex flex-col items-center space-y-6 -mt-6"> <!-- reduced vertical space with -mt -->
     <!-- Icon + Gebeta Name -->
     <div class="flex flex-col items-center">
@@ -33,20 +33,20 @@
 
     <!-- Welcome Text -->
     <div class="text-center">
-      <p class="text-3xl font-bold">Welcome Back</p>
-      <p class="font-bold text-sm">Login to share your next delicious recipe!</p>
+      <p class="text-5xl font-bold">Create Your Account</p>
+      <p class="font-bold text-sm">Start Your Curlinary Journey today</p>
     </div>
 
     <!-- Form -->
     <form @submit.prevent="handleLogin" class="w-full">
-      <fieldset class="bg-white border border-base-300 rounded-box w-[28vw] p-6 mx-auto shadow-sm">
+      <fieldset class="bg-[#fae3cd]   w-[35vw] p-6 mx-5">
         <!-- Removed fieldset style classes that gave dark bg -->
         <label class="label text-lg" for="email">Email</label>
         <div class="relative mb-4">
           <input
             id="email"
             type="email"
-            class="input input-bordered w-full pl-10"
+            class="input input-bordered bg-white w-full pl-10"
             placeholder="Email"
             v-model="email"
           />
@@ -58,7 +58,7 @@
           <input
             id="password"
             type="password"
-            class="input input-bordered w-full pl-10"
+            class="input input-bordered bg-white w-full pl-10"
             placeholder="Password"
             v-model="password"
           />
@@ -67,7 +67,7 @@
 
         <button
           type="submit"
-          class="btn bg-orange-500 hover:bg-orange-600 text-white w-full mt-2"
+          class=" bg-orange-500 hover:bg-orange-600 text-white flex justify-center items-center group hover:scale-110 ease-out transition-all w-[300px] h-12  text-center  text-sm  font-semibold rounded-[6px]"
         >
           SignUp
         </button>
@@ -76,7 +76,7 @@
 
     <!-- Link to Register -->
     <div>
-      <NuxtLink to="/register">
+      <NuxtLink to="/login">
         Already Have an account
         <span class="text-orange-500 hover:underline">Log In</span>
       </NuxtLink>
