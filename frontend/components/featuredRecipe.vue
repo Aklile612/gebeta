@@ -72,7 +72,7 @@
                     Rainbow Buddha Bowl
                     <div class="text-yellow-400 text-[10px]  "><IconStar/></div>
                     </h2>
-                    <p>Nutrstios and colorfull bowl packed with fresh ingredients</p>
+                    <p>Nutrstios and colorfull bowl packed with fresh ingredients I hope it works</p>
                     <div class="card-actions justify-end">
                         <h1>hello</h1>
                     </div>
