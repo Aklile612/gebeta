@@ -303,7 +303,7 @@ const onSubmit = handleSubmit(
               />
               <input
                 :name="`ingredients_${idx}_quantity`"
-                @input="setFieldValue(`ingredients[${idx}].quantity`, event.target.value)"
+                @input="setFieldValue(`ingredients[${idx}].quantity`, $event.target.value)"
                 v-model="values.ingredients[idx].quantity"
                 placeholder="Quantity"
                 class="w-1/3 px-3 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
