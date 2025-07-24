@@ -194,6 +194,26 @@ const removeImage = (index) => {
               </label>
             </div>
             <span class="text-red-500 text-xs mt-2" v-if="touched?.images && errors.images">{{ errors.images }}</span>
+            <!-- Image Preview Thumbnails -->
+            <div v-if="imagePreviews.length" class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <div
+                v-for="(image, index) in imagePreviews"
+                :key="index"
+                class="relative border rounded overflow-hidden"
+              >
+                <img :src="image.url" :alt="image.name" class="w-full h-32 object-cover" />
+                <button
+                  type="button"
+                  @click="removeImage(index)"
+                  class="absolute top-1 right-1 bg-white rounded-full p-1 shadow hover:bg-gray-100"
+                >
+                  <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
           </div>
         </section>
 
