@@ -77,13 +77,25 @@ const removeImage = (index) => {
   imagePreviews.value.splice(index, 1)
 }
 
-
+console.log('Form is valid:', meta.value.valid)
 // Submission
-const onSubmit = handleSubmit((values) => {
-  console.log('✅ Submitted:', values)
-}, (errors) => {
-  console.log('❌ Validation failed:', errors)
-})
+const onSubmit = handleSubmit(
+  (values) => {
+    console.log('✅ Form submitted successfully:', values)
+    // Here you would normally send data to your API
+  },
+  (errors) => {
+    console.log('❌ Validation errors:', errors)
+    // Scroll to first error
+    const firstError = Object.keys(errors)[0]
+    if (firstError) {
+      document.querySelector(`[name="${firstError}"]`)?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      })
+    }
+  }
+)
 </script>
 
 <template>
@@ -109,6 +121,7 @@ const onSubmit = handleSubmit((values) => {
           <div class="mb-4">
             <label class="block text-sm font-medium text-gray-700 mb-1">Recipe Title*</label>
             <input 
+              name="title"
               v-model="values.title" 
               placeholder="e.g., Grandma's Chocolate Chip Cookies" 
               class="w-full px-3 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -119,7 +132,8 @@ const onSubmit = handleSubmit((values) => {
           <!-- Description -->
           <div class="mb-4">
             <label class="block text-sm font-medium text-gray-700 mb-1">Description*</label>
-            <textarea 
+            <textarea
+            name="description" 
               v-model="values.description" 
               placeholder="Tell us about your recipe..." 
               rows="3"
@@ -132,7 +146,8 @@ const onSubmit = handleSubmit((values) => {
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Category*</label>
-              <select 
+              <select
+              name="category" 
                 v-model="values.category" 
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               >
@@ -148,7 +163,8 @@ const onSubmit = handleSubmit((values) => {
             
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Difficulty*</label>
-              <select 
+              <select
+                name="difficulty" 
                 v-model="values.difficulty" 
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               >
@@ -165,7 +181,8 @@ const onSubmit = handleSubmit((values) => {
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Prep Time (minutes)*</label>
-              <input 
+              <input
+                name="prepTime" 
                 v-model="values.prepTime" 
                 type="number" 
                 min="1"
@@ -176,7 +193,8 @@ const onSubmit = handleSubmit((values) => {
             
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Cook Time (minutes)*</label>
-              <input 
+              <input
+              name="cookTime" 
                 v-model="values.cookTime" 
                 type="number" 
                 min="1"
@@ -198,6 +216,7 @@ const onSubmit = handleSubmit((values) => {
               <p class="text-sm text-gray-500 mb-2">Drag & drop images or click to browse</p>
               <p class="text-xs text-gray-400 mb-4">Support: JPG, PNG (Max 5MB each)</p>
               <input
+                name="images"
                 type="file"
                 multiple
                 accept="image/jpeg,image/png"
@@ -239,11 +258,13 @@ const onSubmit = handleSubmit((values) => {
           <div class="space-y-3">
             <div v-for="(ingredient, idx) in ingredientFields" :key="ingredient.key" class="flex items-center gap-3">
               <input
+                name="ingredients"
                 v-model="values.ingredients[idx].name"
                 placeholder="Ingredient name"
                 class="flex-1 px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
               <input
+                name="quantity"
                 v-model="values.ingredients[idx].quantity"
                 placeholder="Quantity"
                 class="w-1/3 px-3 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -281,6 +302,7 @@ const onSubmit = handleSubmit((values) => {
                 <div class="flex items-start">
                   <span class="mt-2 mr-2 font-bold text-gray-500">{{ idx + 1 }}.</span>
                   <textarea
+                    name="description"
                     v-model="values.steps[idx].description"
                     placeholder="Describe this step..."
                     rows="2"
@@ -318,6 +340,7 @@ const onSubmit = handleSubmit((values) => {
           <h2 class="text-lg font-bold mb-4 pb-2 border-b border-gray-200">Pricing</h2>
           <div class="flex items-center mb-2">
             <input
+              name="isPremium"
               type="checkbox"
               id="premium-recipe"
               v-model="values.isPremium"
@@ -335,6 +358,7 @@ const onSubmit = handleSubmit((values) => {
                 <span class="text-gray-500">ETB</span>
               </div>
               <input
+                name="price"
                 v-model="values.price"
                 type="number"
                 min="1"
@@ -354,6 +378,11 @@ const onSubmit = handleSubmit((values) => {
           Submit Recipe
         </button>
       </form>
+      <pre class="text-xs text-gray-600">
+  {{ values }}
+  {{ errors }}
+  {{ touched }}
+</pre>
     </div>
   </div>
 </template>
