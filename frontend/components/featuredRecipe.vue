@@ -7,6 +7,17 @@
         prepTime:Number,
         rating: Number,
     })
+
+    const isLiked = ref(false)
+    const isBookmarked = ref(false)
+
+    function toggleLike() {
+      isLiked.value = !isLiked.value
+    }
+
+    function toggleBookmark() {
+      isBookmarked.value = !isBookmarked.value
+    }
 </script>
 <!-- #FFF6ED -->
 
@@ -29,7 +40,18 @@
             
                 <!-- Body -->
                 <div class="card-body p-4 pt-2">
-                
+                  <!-- like and bookmark -->
+                  <div class="flex justify-end gap-2 mb-2">
+                    <!-- Like button -->
+                    <button @click="toggleLike">
+                      <IconHeart :class="[isLiked ? 'text-red-500' : '']" class="w-5 h-5 hover:scale-110 transition-all" />
+                    </button>
+
+                    <!-- Bookmark button -->
+                    <button @click="toggleBookmark">
+                      <IconBookmark :class="[isBookmarked ? 'text-blue-500' : '']" class="w-5 h-5 hover:scale-110 transition-all" />
+                    </button>
+                  </div>
                   <!-- Top Row: Rating -->
                   <div class="flex items-center gap-1 text-sm text-yellow-500">
                     <IconStar class="w-4 h-4" />
