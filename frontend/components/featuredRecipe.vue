@@ -40,18 +40,18 @@
                       
                     <div class="absolute top-2 left-2  z-10">
                       <button
-                       class="bg-white rounded-full w-7 h-7 transition-all"
+                       class="w-7 h-7 transition-all"
                       @click="toggleLike">
                         <IconHeart
-                          :class="[isLiked ? 'bg-red-500' : 'bg-white']"
+                          :class="[isLiked ? 'text-red-500' : '']"
                           class="w-5 h-5 hover:scale-110 transition-all drop-shadow"
                         />
                       </button>
                     </div>
-                    <div class="absolute top-2 w-8 h-8 right-2 z-10">
+                    <div class="absolute top-2 w-8 h-8  right-2 z-10">
                       <button @click="toggleBookmark">
                         <IconBookmark
-                          :class="[isBookmarked ? 'bg-blue-500' : 'bg-white']"
+                          :class="[isBookmarked ? ' text-blue-500' : '']"
                           class="w-5 h-5 hover:scale-110 transition-all drop-shadow"
                         />
                       </button>

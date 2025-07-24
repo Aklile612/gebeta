@@ -9,7 +9,7 @@ const route= useRoute()
     <header>
       <div class="navbar fixed top-0 left-0 w-full bg-transparent backdrop-blur-md z-50 transition-all flex justify-between duration-300">
         <NuxtLink to="/" class="flex  gap-2 items-center hover:scale-105 md:ml-7 ml-3  text-center justify-center flex-row ">
-          <div class="text-white font-bold w-8 h-8 rounded-sm bg-orange-500"><IconUtensils /></div>
+          <div class="text-white font-bold w-8 h-8 rounded-sm pl-1 pt-1 bg-orange-500"><IconUtensils /></div>
           <div class=" font-mono text-xl ">ገበታ</div>
         </NuxtLink>
   <div class="flex gap-2">

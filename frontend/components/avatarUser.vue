@@ -9,7 +9,7 @@
             <h1 class="mb-5 text-4xl ml-[7vw] font-serif  font-bold">Top Recipe Creators</h1>
 
         </div>
-        <div class="flex gap-9 mt-5 justify-center">
+        <div class="flex gap-9 mt-8 justify-center">
             <div class="w-[240px] p-4 bg-[#fae3cd] rounded-xl flex flex-col items-center shadow-sm">
                 <!-- Icon in circle -->
                 <div class="w-16 h-16 bg-white hover:shadow-slate-300 hover:scale-110 rounded-full flex items-center justify-center shadow-md">

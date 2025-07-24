@@ -64,7 +64,7 @@ const onSubmit = handleSubmit((formValues) => {
 
 
 <template>
-    <form @submit.prevent="onSubmit" class="space-y-4 max-w-xl mx-auto">
+    <form @submit.prevent="onSubmit" class="space-y-4 py-[70px] max-w-xl mx-auto">
   
       <!-- Title -->
       <input v-model="values.title" placeholder="Title" class="input" />
