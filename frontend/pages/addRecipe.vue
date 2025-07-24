@@ -32,14 +32,15 @@ const schema = yup.object({
     }))
     .min(1, 'At least one step is required'),
   isPremium: yup.boolean(),
-  price: yup.number().when('isPremium', {
-    is: true,
-    then: schema => schema
-      .required('Price is required for premium recipes')
-      .min(1, 'Price must be at least 1')
-      .max(1000, 'Price too high'),
-    otherwise: schema => schema.notRequired()
-  })
+  price: yup.mixed().when('isPremium', {
+  is: true,
+  then: yup.number()
+    .typeError('Price must be a number')
+    .required('Price is required for premium recipes')
+    .min(1, 'Price must be at least 1')
+    .max(1000, 'Price too high'),
+  otherwise: yup.mixed().notRequired()
+})
 })
 
 // Form setup with enhanced initial values
@@ -56,7 +57,7 @@ const { handleSubmit, errors, values, setFieldValue, meta, touched, resetForm } 
     ingredients: [{ name: '', quantity: '' }],
     steps: [{ description: '' }],
     isPremium: false,
-    price: ''
+    price: null
   }
 })
 
@@ -151,7 +152,11 @@ const removeImage = (index) => {
   
   imagePreviews.value.splice(index, 1)
 }
-
+watch(() => values.isPremium, (newValue) => {
+  if (!newValue) {
+    setFieldValue('price', null)
+  }
+})
 // Enhanced form submission with loading state and better error handling
 const onSubmit = handleSubmit(
   async (values) => {
@@ -233,6 +238,11 @@ const logFormState = () => {
     meta: JSON.parse(JSON.stringify(meta)),
     touched: JSON.parse(JSON.stringify(touched))
   })
+}
+const handlePriceInput = (event) => {
+  const value = event.target.value
+  // Convert to number if not empty, otherwise set to null
+  setFieldValue('price', value === '' ? null : Number(value))
 }
 </script>
 
@@ -486,12 +496,11 @@ const logFormState = () => {
           <h2 class="text-lg font-bold mb-4 pb-2 border-b border-gray-200">Pricing</h2>
           <div class="flex items-center mb-2">
             <input
-              
-              name="isPremium"
-              type="checkbox"
-              id="premium-recipe"
-               :checked="values.isPremium"
-              class="w-4 h-4 text-orange-500 rounded focus:ring-orange-500"
+            type="checkbox"
+            id="premium-recipe"
+            :checked="values.isPremium"
+            @change="setFieldValue('isPremium', $event.target.checked)"
+            class="w-4 h-4 text-orange-500 rounded focus:ring-orange-500"
             />
             <label for="premium-recipe" class="ml-2 text-sm font-medium text-gray-700">Premium Recipe</label>
           </div>
@@ -505,13 +514,13 @@ const logFormState = () => {
                 <span class="text-gray-500">ETB</span>
               </div>
               <input
-                name="price"
-                v-model="values.price"
-                @input="setFieldValue('price', Number($event.target.value))"
-                type="number"
-                min="1"
-                placeholder="Enter amount"
-                class="block w-full pl-12 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+              name="price"
+              :value="values.price"
+              @input="handlePriceInput($event)"
+              type="number"
+              min="1"
+              placeholder="Enter amount"
+              class="block w-full pl-12 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
             </div>
             <span class="text-red-500 text-xs mt-1" v-if="touched?.price && errors.price">{{ errors.price }}</span>
