@@ -48,7 +48,7 @@ const { handleSubmit, errors, values, setFieldValue, meta, touched } = useForm({
     price: '',
   }
 })
-
+const isFormValid = computed(() => meta.value.valid)
 const { fields: ingredientFields, push: addIngredient, remove: removeIngredient } = useFieldArray('ingredients')
 const { fields: stepFields, push: addStep, remove: removeStep } = useFieldArray('steps')
 
@@ -81,11 +81,12 @@ console.log('Form is valid:', meta.value.valid)
 // Submission
 const onSubmit = handleSubmit(
   (values) => {
-    console.log('✅ Form submitted successfully:', values)
+    console.log('✅ Form submitted successfully:', JSON.parse(JSON.stringify(values)))
     // Here you would normally send data to your API
   },
   (errors) => {
-    console.log('❌ Validation errors:', errors)
+    console.log('❌ Validation errors:', JSON.parse(JSON.stringify(errors)))
+    console.log('Current values:', JSON.parse(JSON.stringify(values)))
     // Scroll to first error
     const firstError = Object.keys(errors)[0]
     if (firstError) {
@@ -151,7 +152,7 @@ const onSubmit = handleSubmit(
               <select
               name="category" 
                 v-model="values.category"
-                @input="setFieldValue('catagory', $event.target.value)" 
+                @input="setFieldValue('category', $event.target.value)" 
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               >
                 <option value="">Select category</option>
@@ -267,7 +268,7 @@ const onSubmit = handleSubmit(
               <input
                 name="ingredients"
                 v-model="values.ingredients[idx].name"
-                @input="setFieldValue('ingredients', $event.target.value)"
+                @input="setFieldValue(`ingredients[${idx}].name`, $event.target.value)"
                 placeholder="Ingredient name"
                 class="flex-1 px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
@@ -312,7 +313,7 @@ const onSubmit = handleSubmit(
                   <span class="mt-2 mr-2 font-bold text-gray-500">{{ idx + 1 }}.</span>
                   <textarea
                     name="description"
-                    @input="setFieldValue('description', $event.target.value)"
+                    @input="setFieldValue(`steps[${idx}].description`, $event.target.value)"
                     v-model="values.steps[idx].description"
                     placeholder="Describe this step..."
                     rows="2"
@@ -350,7 +351,7 @@ const onSubmit = handleSubmit(
           <h2 class="text-lg font-bold mb-4 pb-2 border-b border-gray-200">Pricing</h2>
           <div class="flex items-center mb-2">
             <input
-              @input="setFieldValue('isPremimum', $event.target.value)"
+              @input="setFieldValue('isPremium', $event.target.value)"
               name="isPremium"
               type="checkbox"
               id="premium-recipe"
@@ -395,6 +396,11 @@ const onSubmit = handleSubmit(
   {{ errors }}
   {{ touched }}
 </pre>
+<div class="fixed bottom-4 right-4 p-4 bg-white shadow-lg rounded-lg">
+  <p>Form valid: {{ isFormValid }}</p>
+  <p>Dirty: {{ meta.dirty }}</p>
+  <p>Touched: {{ meta.touched }}</p>
+</div>
     </div>
   </div>
   <button 
