@@ -53,10 +53,6 @@ const { fields: ingredientFields, push: addIngredient, remove: removeIngredient 
 const { fields: stepFields, push: addStep, remove: removeStep } = useFieldArray('steps')
 
 // File handling
-function handleImageUpload(event) {
-  const files = Array.from(event.target.files)
-  setFieldValue('images', files)
-}
 const imagePreviews = ref([])
 
 function handleImageUpload(event) {
@@ -75,7 +71,7 @@ const onSubmit = handleSubmit((formValues) => {
 })
 
 const removeImage = (index) => {
-  const newImages = [...values.images]
+  const newImages = Array.isArray(values.images) ? [...values.images] : []
   newImages.splice(index, 1)
   setFieldValue('images', newImages)
   imagePreviews.value.splice(index, 1)

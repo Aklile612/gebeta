@@ -21,11 +21,12 @@ const route= useRoute()
       :class="{ 'active-link': route.path === '/recipes' }"
     >Recipes</NuxtLink>
 
-    <button
+    <NuxtLink to="/addrecipe"
+    
       class="btn btn-dash btn-secondary border-orange-300 hover:bg-orange-500 hover:text-black text-orange-400"
     >
       Create Recipe
-    </button>
+    </NuxtLink>
 
     <NuxtLink
       to="/categories"
