@@ -179,7 +179,12 @@ const onSubmit = handleSubmit(
       console.log('--- Form Submission Data ---')
       console.log('Metadata:', metadata)
       console.log('Image count:', values.images.length)
-      
+      useToast().add({
+      title: 'Success!',
+      description: 'Recipe submitted successfully.',
+      icon: 'i-heroicons-check-circle',
+      color: 'green'
+    });
       // Uncomment for actual API call
       /*
       const response = await fetch('/api/recipes', {
