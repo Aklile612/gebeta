@@ -7,18 +7,18 @@ const route= useRoute()
 
 <template>
     <header>
-      <div class="navbar fixed top-0 left-0 w-full bg-transparent backdrop-blur-md z-50 transition-all duration-300">
-        <div class="flex  gap-2 items-center hover:bg-slate-200  flex-row ">
+      <div class="navbar fixed top-0 left-0 w-full bg-transparent backdrop-blur-md z-50 transition-all flex justify-between duration-300">
+        <NuxtLink to="/" class="flex  gap-2 items-center hover:scale-105 md:ml-7 ml-3  text-center justify-center flex-row ">
           <div class="text-white font-bold w-8 h-8 rounded-sm bg-orange-500"><IconUtensils /></div>
           <div class=" font-mono text-xl ">ገበታ</div>
-        </div>
+        </NuxtLink>
   <div class="flex gap-2">
     <!-- <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" /> -->
      <div class="flex gap-6 mr-20 md:mt-2 text-lg">
     <NuxtLink
-      to="/"
+      to="/recipes"
       class="nav-link"
-      :class="{ 'active-link': route.path === '/recipe' }"
+      :class="{ 'active-link': route.path === '/recipes' }"
     >Recipes</NuxtLink>
 
     <button
