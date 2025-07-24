@@ -11,6 +11,7 @@ const schema = yup.object({
   cookTime: yup.number().min(1).required(),
   images: yup.array().min(1, 'At least one image is required'),
   category: yup.string().required(),
+  difficulty: yup.string().required(),
   ingredients: yup.array().of(
     yup.object({
       name: yup.string().required(),
@@ -40,6 +41,7 @@ const { handleSubmit, errors, values, setFieldValue ,meta, touched } = useForm({
     cookTime: '',
     images: [],
     category: '',
+    difficulty:'',
     ingredients: [{ name: '', quantity: '' }],
     steps: [{ description: '' }],
     isPremium: false,
@@ -78,25 +80,53 @@ const onSubmit = handleSubmit((formValues) => {
       <!-- Title -->
       <label class="text-sm ml-3">Recipe Title</label>
       <input v-model="values.title" placeholder="eg. Holiday tibes" class="input w-2xl bg-white placeholder-slate-300" />
-      <span class="text-red-500 text-sm" v-if="touched.title && errors.title">{{errors.title }}</span>
+      <span class="text-red-500 text-sm" v-if="touched?.title && errors.title">{{errors.title }}</span>
   
       <!-- Description -->
       <label class="text-sm ml-3">Description</label>
       <textarea v-model="values.description" placeholder="Describe your recipe and what makes it special" class="w-2xl textarea bg-white placeholder-slate-300" />
-      <span class="text-red-500 text-sm" v-if="touched.description && errors.description">{{ errors.description }}</span>
+      <span class="text-red-500 text-sm" v-if="touched?.description && errors.description">{{ errors.description }}</span>
   
       <!-- Prep & Cook Time -->
       <div class="flex gap-2">
         <label class="text-sm ml-8">Times needed</label>
-        <input v-model="values.prepTime" type="number" placeholder="Prep Time (min)" class="input bg-white" />
-        <input v-model="values.cookTime" type="number" placeholder="Cook Time (min)" class="input" />
+        <input v-model="values.prepTime" type="number" placeholder="Prep Time (min)" class="input bg-white placeholder-slate-300" />
+        <input v-model="values.cookTime" type="number" placeholder="Cook Time (min)" class="input bg-white placeholder-slate-300" />
       </div>
   
       <!-- Image Upload -->
       <label class="text-sm ml-3">Images</label>
-      <input type="file" multiple @change="handleImageUpload" class="input" />
-      <span class="text-red-500 text-sm">{{ errors.images }}</span>
-  
+
+      <!-- Upload box -->
+      <div class="relative bg-orange-500 rounded-md h-40 w-2xl flex items-center justify-center">
+        <div class="text-center space-y-1">
+          <p class="text-white font-medium">Add your images here</p>
+          
+          <!-- Button triggers file input -->
+          <button
+            type="button"
+            @click="$refs.imageInput.click()"
+            class="px-4 py-2 text-white bg-orange-500 rounded-md font-semibold hover:bg-orange-100 transition"
+          >
+            Upload Images
+          </button>
+        </div>
+
+        <!-- Hidden file input -->
+        <input
+          ref="imageInput"
+          type="file"
+          multiple
+          @change="handleImageUpload"
+          class="hidden"
+        />
+      </div>
+
+      <!-- Error -->
+      <span class="text-red-500 text-sm" v-if="touched?.images && errors.images">
+        {{ errors.images }}
+      </span>
+
       <!-- Category Dropdown -->
       <select v-model="values.category" class="input">
         <option value="">Select Category</option>
@@ -104,8 +134,20 @@ const onSubmit = handleSubmit((formValues) => {
         <option value="2">Lunch</option>
         <option value="3">Dinner</option>
       </select>
-      <span class="text-red-500 text-sm">{{ errors.category }}</span>
-  
+      <span class="text-red-500 text-sm" v-if="touched?.category && errors.category" >{{ errors.category }}</span>
+      
+
+      <!-- difficulty dropdown -->
+       
+      <select v-model="values.difficulty" class="input">
+        <option value="">Select difficulty</option>
+        <option value="1">Easy</option>
+        <option value="2">Medium</option>
+        <option value="3">Hard</option>
+      </select>
+      <span class="text-red-500 text-sm" v-if="touched?.difficulty && errors.difficulty" >{{ errors.category }}</span>
+
+
       <!-- Ingredients -->
       <div>
         <label class="text-sm ml-3">Ingredients</label>
@@ -115,7 +157,7 @@ const onSubmit = handleSubmit((formValues) => {
           <button type="button" @click="removeIngredient(idx)">❌</button>
         </div>
         <button type="button" @click="addIngredient({ name: '', quantity: '' })" class="btn mt-2">+ Add Ingredient</button>
-        <span class="text-red-500 text-sm">{{ errors.ingredients }}</span>
+        <span class="text-red-500 text-sm" v-if="touched?.ingredients && errors.ingredients">{{ errors.ingredients }}</span>
       </div>
   
       <!-- Steps -->
@@ -126,7 +168,7 @@ const onSubmit = handleSubmit((formValues) => {
           <button type="button" @click="removeStep(idx)">❌</button>
         </div>
         <button type="button" @click="addStep({ description: '' })" class="btn mt-2">+ Add Step</button>
-        <span class="text-red-500 text-sm">{{ errors.steps }}</span>
+        <span class="text-red-500 text-sm" v-if="touched?.steps && errors.steps">{{ errors.steps }}</span>
       </div>
   
       <!-- Premium Toggle -->
@@ -138,7 +180,7 @@ const onSubmit = handleSubmit((formValues) => {
       <!-- Price -->
       <div v-if="values.isPremium">
         <input type="number" v-model="values.price" placeholder="Price (ETB)" class="input" />
-        <span class="text-red-500 text-sm">{{ errors.price }}</span>
+        <span class="text-red-500 text-sm" v-if="touched?.price && errors.price">{{ errors.price }}</span>
       </div>
   
       <!-- Submit -->
