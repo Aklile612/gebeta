@@ -57,7 +57,18 @@ function handleImageUpload(event) {
   const files = Array.from(event.target.files)
   setFieldValue('images', files)
 }
+const imagePreviews = ref([])
 
+function handleImageUpload(event) {
+  const files = Array.from(event.target.files)
+  setFieldValue('images', files)
+
+  // Generate preview URLs
+  imagePreviews.value = files.map(file => ({
+    url: URL.createObjectURL(file),
+    name: file.name
+  }))
+}
 // Submission
 const onSubmit = handleSubmit((formValues) => {
   console.log('✅ Submitted:', formValues)
@@ -67,6 +78,7 @@ const removeImage = (index) => {
   const newImages = [...values.images]
   newImages.splice(index, 1)
   setFieldValue('images', newImages)
+  imagePreviews.value.splice(index, 1)
 }
 </script>
 
