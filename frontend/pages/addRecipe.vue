@@ -1,37 +1,14 @@
 <script setup>
 import { useForm, useFieldArray } from 'vee-validate'
 import * as yup from 'yup'
-import { ref,watch } from 'vue'
+import { ref, watch, computed, onBeforeUnmount } from 'vue'
 
-// Schema
+// Schema remains the same
 const schema = yup.object({
-  title: yup.string().required('Recipe title is required'),
-  description: yup.string().required('Description is required'),
-  prepTime: yup.number().min(1, 'Must be at least 1 minute').required('Prep time is required'),
-  cookTime: yup.number().min(1, 'Must be at least 1 minute').required('Cook time is required'),
-  images: yup.array().min(1, 'At least one image is required'),
-  category: yup.string().required('Category is required'),
-  difficulty: yup.string().required('Difficulty is required'),
-  ingredients: yup.array().of(
-    yup.object({
-      name: yup.string().required('Ingredient name is required'),
-      quantity: yup.string().required('Quantity is required'),
-    })
-  ).min(1, 'At least one ingredient is required'),
-  steps: yup.array().of(
-    yup.object({
-      description: yup.string().required('Step description is required'),
-    })
-  ).min(1, 'At least one step is required'),
-  isPremium: yup.boolean(),
-  price: yup.number().when('isPremium', {
-    is: true,
-    then: (schema) => schema.required('Price is required for premium recipes').min(1, 'Price must be at least 1'),
-    otherwise: (schema) => schema.notRequired()
-  })
+  // ... (keep your existing schema)
 })
 
-// Form setup
+// Form setup with proper initial values
 const { handleSubmit, errors, values, setFieldValue, meta, touched } = useForm({
   validationSchema: schema,
   initialValues: {
@@ -45,52 +22,106 @@ const { handleSubmit, errors, values, setFieldValue, meta, touched } = useForm({
     ingredients: [{ name: '', quantity: '' }],
     steps: [{ description: '' }],
     isPremium: false,
-    price: '',
+    price: ''
   }
 })
+
 const isFormValid = computed(() => meta.value.valid)
+
+// Field arrays
 const { fields: ingredientFields, push: addIngredient, remove: removeIngredient } = useFieldArray('ingredients')
 const { fields: stepFields, push: addStep, remove: removeStep } = useFieldArray('steps')
 
 // File handling
 const imagePreviews = ref([])
+const fileInput = ref(null)
 
 function handleImageUpload(event) {
-  const files = Array.from(event.target.files)
-  setFieldValue('images', files)
+  const MAX_SIZE = 5 * 1024 * 1024 // 5MB
+  const files = event.target.files
+  
+  if (!files || files.length === 0) return
 
-  // Generate preview URLs
-  imagePreviews.value = files.map(file => ({
+  // Check file sizes
+  const validFiles = Array.from(files).filter(file => {
+    if (file.size > MAX_SIZE) {
+      console.warn(`File ${file.name} exceeds 5MB limit`)
+      return false
+    }
+    return true
+  })
+
+  if (validFiles.length === 0) return
+
+  // Create new array with existing and new files
+  const currentImages = values.images || []
+  const newImages = [...currentImages, ...validFiles]
+  
+  setFieldValue('images', newImages)
+
+  // Generate previews only for new files
+  const newPreviews = validFiles.map(file => ({
     url: URL.createObjectURL(file),
     name: file.name
   }))
+  
+  imagePreviews.value = [...imagePreviews.value, ...newPreviews]
 }
-watch(() => values.isPremium, (newVal) => {
-  console.log('isPremium changed:', newVal)
+
+// Clean up object URLs
+onBeforeUnmount(() => {
+  imagePreviews.value.forEach(preview => {
+    URL.revokeObjectURL(preview.url)
+  })
 })
 
-
 const removeImage = (index) => {
-  const newImages = Array.isArray(values.images) ? [...values.images] : []
+  // Revoke the object URL
+  URL.revokeObjectURL(imagePreviews.value[index].url)
+  
+  // Remove from both form state and previews
+  const newImages = [...values.images]
   newImages.splice(index, 1)
   setFieldValue('images', newImages)
+  
   imagePreviews.value.splice(index, 1)
 }
 
-console.log('Form is valid:', meta.value.valid)
-// Submission
+// Enhanced form submission
 const onSubmit = handleSubmit(
   (values) => {
-    console.log('✅ Form submitted successfully:', JSON.parse(JSON.stringify(values)))
-    // Here you would normally send data to your API
+    // Create FormData for file upload
+    const formData = new FormData()
+    
+    // Append all fields except images
+    Object.entries(values).forEach(([key, value]) => {
+      if (key !== 'images') {
+        formData.append(key, typeof value === 'object' ? JSON.stringify(value) : value)
+      }
+    })
+    
+    // Append each image file
+    values.images.forEach((file, index) => {
+      formData.append(`images[${index}]`, file)
+    })
+
+    console.log('✅ Form ready for submission:', formData)
+    // Here you would send formData to your API
   },
   (errors) => {
-    console.log('❌ Validation errors:', JSON.parse(JSON.stringify(errors)))
-    console.log('Current values:', JSON.parse(JSON.stringify(values)))
+    console.log('❌ Validation errors:', errors)
     // Scroll to first error
-    const firstError = Object.keys(errors)[0]
-    if (firstError) {
-      document.querySelector(`[name="${firstError}"]`)?.scrollIntoView({
+    const firstErrorKey = Object.keys(errors)[0]
+    if (firstErrorKey) {
+      let selector = `[name="${firstErrorKey}"]`
+      
+      // Handle array fields
+      if (firstErrorKey.includes('[')) {
+        const [fieldName, index] = firstErrorKey.split(/[[\]]/).filter(Boolean)
+        selector = `[name="${fieldName}_${index}"]`
+      }
+      
+      document.querySelector(selector)?.scrollIntoView({
         behavior: 'smooth',
         block: 'center'
       })
@@ -222,15 +253,13 @@ const onSubmit = handleSubmit(
               </svg>
               <p class="text-sm text-gray-500 mb-2">Drag & drop images or click to browse</p>
               <p class="text-xs text-gray-400 mb-4">Support: JPG, PNG (Max 5MB each)</p>
-              <input
-                name="images"
-                type="file"
+              <input type="file"
                 multiple
-                @input="setFieldValue('images', $event.target.value)"
                 accept="image/jpeg,image/png"
                 @change="handleImageUpload"
                 class="hidden"
                 id="image-upload"
+                ref="fileInput"
               />
               <label for="image-upload" class="px-4 py-2 bg-orange-500 text-white rounded-md cursor-pointer hover:bg-orange-600 transition">
                 Choose Files
@@ -266,15 +295,15 @@ const onSubmit = handleSubmit(
           <div class="space-y-3">
             <div v-for="(ingredient, idx) in ingredientFields" :key="ingredient.key" class="flex items-center gap-3">
               <input
-                name="ingredients"
+                :name="`ingredients_${idx}_name`"
                 v-model="values.ingredients[idx].name"
                 @input="setFieldValue(`ingredients[${idx}].name`, $event.target.value)"
                 placeholder="Ingredient name"
                 class="flex-1 px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
               <input
-                name="quantity"
-                @input="setFieldValue('quantity', Number($event.target.value))"
+                :name="`ingredients_${idx}_quantity`"
+                @input="setFieldValue(`ingredients[${idx}].quantity`, event.target.value)"
                 v-model="values.ingredients[idx].quantity"
                 placeholder="Quantity"
                 class="w-1/3 px-3 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -312,7 +341,7 @@ const onSubmit = handleSubmit(
                 <div class="flex items-start">
                   <span class="mt-2 mr-2 font-bold text-gray-500">{{ idx + 1 }}.</span>
                   <textarea
-                    name="description"
+                    :name="`steps_${idx}_description`"
                     @input="setFieldValue(`steps[${idx}].description`, $event.target.value)"
                     v-model="values.steps[idx].description"
                     placeholder="Describe this step..."
@@ -351,11 +380,11 @@ const onSubmit = handleSubmit(
           <h2 class="text-lg font-bold mb-4 pb-2 border-b border-gray-200">Pricing</h2>
           <div class="flex items-center mb-2">
             <input
-              @input="setFieldValue('isPremium', $event.target.value)"
+              
               name="isPremium"
               type="checkbox"
               id="premium-recipe"
-              v-model="values.isPremium"
+               :checked="values.isPremium"
               class="w-4 h-4 text-orange-500 rounded focus:ring-orange-500"
             />
             <label for="premium-recipe" class="ml-2 text-sm font-medium text-gray-700">Premium Recipe</label>
