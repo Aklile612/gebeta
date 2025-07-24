@@ -192,7 +192,7 @@ const onSubmit = handleSubmit(
                 @input="setFieldValue('prepTime', Number($event.target.value))" 
                 type="number" 
                 min="1"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                class="w-full px-3 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
               <span class="text-red-500 text-xs mt-1" v-if="touched?.prepTime && errors.prepTime">{{ errors.prepTime }}</span>
             </div>
@@ -205,7 +205,7 @@ const onSubmit = handleSubmit(
                 v-model="values.cookTime" 
                 type="number" 
                 min="1"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                class="w-full px-3 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
               <span class="text-red-500 text-xs mt-1" v-if="touched?.cookTime && errors.cookTime">{{ errors.cookTime }}</span>
             </div>
