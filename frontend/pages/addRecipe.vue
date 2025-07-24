@@ -65,39 +65,42 @@ const onSubmit = handleSubmit((formValues) => {
 </script>
 
 
-<template>
-  <div class="w-full bg-[#fae3cd] py-[70px]">
+<template> 
+  <div class="w-full justify-center flex items-center bg-[#fae3cd] py-[70px]">
 
     <div class="mx-20 ">
-      <div class="flex gap-2">
-        <NuxtLink to="/" class="text-lg font-bold hover:scale-105"><IconChevronLeft /></NuxtLink>
+      <div class="flex">
+        <NuxtLink to="/" class="text-lg pt-1 font-bold hover:scale-105"><IconChevronLeft /></NuxtLink>
         <h1 class="font-bold text-lg "> Create New Recipe</h1>
       </div>
       <p>Share Your Culiary Creation with the community</p>
     </div>
-    <form @submit.prevent="onSubmit" class="space-y-4 shadow-md shadow-slate-600   bg-white max-w-3xl px-5 rounded-[7px] mx-auto">
+    <form @submit.prevent="onSubmit" class="space-y-4 shadow-md shadow-slate-600 h-[80vh]   bg-white max-w-3xl px-5 rounded-[7px] mx-auto">
       <div class="font-bold text-lg mt-2">Basic Information</div>
       <!-- Title -->
-       <div class="mb-4 w-full">
+       <div class="mb-4 w-full flex flex-col">
         <label class="text-xs ml-3 font-semibold">Recipe Title*</label>
-        <input v-model="values.title" placeholder="eg. Holiday tibes" class="input w-2xl bg-sla placeholder-slate-300 placeholder:font-semibold placeholder:text-[10px]" />
+        <input v-model="values.title" placeholder="eg. Holiday tibes" class="input w-2xl bg-white placeholder-slate-300 placeholder:font-semibold placeholder:text-[10px]" />
         <span class="text-red-500 text-sm" v-if="touched?.title && errors.title">{{errors.title }}</span>
       </div>
       <!-- Description -->
-      <div class="my-2 w-full">
+      <div class="my-2 w-full flex flex-col">
          <label class="text-sm ml-3 font-semibold">Description*</label>
          <textarea v-model="values.description" placeholder="Describe your recipe and what makes it special" class="w-2xl textarea bg-white placeholder:text-[10px] placeholder-slate-300" />
          <span class="text-red-500 text-sm" v-if="touched?.description && errors.description">{{ errors.description }}</span>
       </div>
   
       <!-- Prep & Cook Time -->
-      <div class="flex gap-2">
+      <div class="flex gap-2  flex-col">
         <label class="text-xs ml-8 font-semibold max-w-full">Times needed</label><br>
+        <div class="flex gap-1">
         <input v-model="values.prepTime" type="number" placeholder="Prep Time (min)" class="input bg-[#EFEFEF] placeholder-black placeholder:font-semibold placeholder:text-[10px]" />
         <input v-model="values.cookTime" type="number" placeholder="Cook Time (min)" class="input bg-[#EFEFEF] placeholder-black placeholder:font-semibold placeholder:text-[10px]" />
+        </div>
       </div>
   
       <!-- Image Upload -->
+      <div class="flex flex-col border-1 border-slate-300 border-spacing-1">
       <label class="text-xs font-semibold ml-3 max-w-full">Images</label>
 
       <!-- Upload box -->
@@ -124,14 +127,16 @@ const onSubmit = handleSubmit((formValues) => {
           class="hidden"
         />
       </div>
-
       <!-- Error -->
       <span class="text-red-500 text-sm" v-if="touched?.images && errors.images">
         {{ errors.images }}
       </span>
+    </div>
 
       <!-- Category Dropdown -->
-      <select v-model="values.category" class="input">
+      <div>
+
+      <select v-model="values.category" class="input bg-white">
         <option value="">Select Category</option>
         <option value="1">Breakfast</option>
         <option value="2">Lunch</option>
@@ -149,15 +154,16 @@ const onSubmit = handleSubmit((formValues) => {
         <option value="3">Hard</option>
       </select>
       <span class="text-red-500 text-sm" v-if="touched?.difficulty && errors.difficulty" >{{ errors.category }}</span>
-
+    </div>
+      
 
       <!-- Ingredients -->
-      <div>
-        <label class="text-sm ml-3">Ingredients</label>
+      <div class="border-2 bg-white border-gray-300 rounded-md p-4 mt-2">
+        <label class="text-sm ml-3 text-md font-bold" >Ingredients</label>
         <div v-for="(ingredient, idx) in ingredientFields" :key="ingredient.key" class="flex gap-2 mt-1">
-          <input v-model="values.ingredients[idx].name" placeholder="Name" class="input" />
-          <input v-model="values.ingredients[idx].quantity" placeholder="Quantity" class="input" />
-          <button type="button" @click="removeIngredient(idx)">❌</button>
+          <input v-model="values.ingredients[idx].name" placeholder="Name" class="input w-2/3" />
+          <input v-model="values.ingredients[idx].quantity" placeholder="Quantity" class="input w-1/3" />
+          <button type="button" @click="removeIngredient(idx)" class="w-">❌</button>
         </div>
         <button type="button" @click="addIngredient({ name: '', quantity: '' })" class="btn mt-2">+ Add Ingredient</button>
         <span class="text-red-500 text-sm" v-if="touched?.ingredients && errors.ingredients">{{ errors.ingredients }}</span>
