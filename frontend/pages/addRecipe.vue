@@ -31,7 +31,7 @@ const schema = yup.object({
 })
 
 // VeeValidate setup
-const { handleSubmit, errors, values, setFieldValue } = useForm({
+const { handleSubmit, errors, values, setFieldValue ,meta, touched } = useForm({
   validationSchema: schema,
   initialValues: {
     title: '',
@@ -64,7 +64,7 @@ const onSubmit = handleSubmit((formValues) => {
 
 
 <template>
-  <div class="w-full bg-[#fae3cd]">
+  <div class="w-full bg-[#fae3cd] py-[70px]">
 
     <div class="mx-auto ">
       <div class="flex gap-5">
@@ -73,23 +73,27 @@ const onSubmit = handleSubmit((formValues) => {
       </div>
       <p>Share Your Culiary Creation with the community</p>
     </div>
-    <form @submit.prevent="onSubmit" class="space-y-4 py-[70px] bg-white max-w-2xl rounded-[5px] mx-auto">
-  
+    <form @submit.prevent="onSubmit" class="space-y-4  bg-white max-w-3xl px-5 rounded-[5px] mx-auto">
+      <div class="font-bold text-lg">Basic Information</div>
       <!-- Title -->
-      <input v-model="values.title" placeholder="Title" class="input" />
-      <span class="text-red-500 text-sm">{{values.title ? '': errors.title }}</span>
+      <label class="text-sm ml-3">Recipe Title</label>
+      <input v-model="values.title" placeholder="eg. Holiday tibes" class="input w-2xl bg-white placeholder-slate-300" />
+      <span class="text-red-500 text-sm" v-if="touched.title && errors.title">{{errors.title }}</span>
   
       <!-- Description -->
-      <textarea v-model="values.description" placeholder="Description" class="textarea" />
-      <span class="text-red-500 text-sm">{{ errors.description }}</span>
+      <label class="text-sm ml-3">Description</label>
+      <textarea v-model="values.description" placeholder="Describe your recipe and what makes it special" class="w-2xl textarea bg-white placeholder-slate-300" />
+      <span class="text-red-500 text-sm" v-if="touched.description && errors.description">{{ errors.description }}</span>
   
       <!-- Prep & Cook Time -->
       <div class="flex gap-2">
-        <input v-model="values.prepTime" type="number" placeholder="Prep Time (min)" class="input" />
+        <label class="text-sm ml-8">Times needed</label>
+        <input v-model="values.prepTime" type="number" placeholder="Prep Time (min)" class="input bg-white" />
         <input v-model="values.cookTime" type="number" placeholder="Cook Time (min)" class="input" />
       </div>
   
       <!-- Image Upload -->
+      <label class="text-sm ml-3">Images</label>
       <input type="file" multiple @change="handleImageUpload" class="input" />
       <span class="text-red-500 text-sm">{{ errors.images }}</span>
   
@@ -104,7 +108,7 @@ const onSubmit = handleSubmit((formValues) => {
   
       <!-- Ingredients -->
       <div>
-        <label class="font-semibold">Ingredients</label>
+        <label class="text-sm ml-3">Ingredients</label>
         <div v-for="(ingredient, idx) in ingredientFields" :key="ingredient.key" class="flex gap-2 mt-1">
           <input v-model="values.ingredients[idx].name" placeholder="Name" class="input" />
           <input v-model="values.ingredients[idx].quantity" placeholder="Quantity" class="input" />
