@@ -123,6 +123,7 @@ const onSubmit = handleSubmit(
             <input 
               name="title"
               v-model="values.title" 
+              @input="setFieldValue('title', $event.target.value)"
               placeholder="e.g., Grandma's Chocolate Chip Cookies" 
               class="w-full px-3 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
@@ -134,7 +135,8 @@ const onSubmit = handleSubmit(
             <label class="block text-sm font-medium text-gray-700 mb-1">Description*</label>
             <textarea
             name="description" 
-              v-model="values.description" 
+              v-model="values.description"
+              @input="setFieldValue('description', $event.target.value)" 
               placeholder="Tell us about your recipe..." 
               rows="3"
               class="w-full px-3 py-2 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -148,7 +150,8 @@ const onSubmit = handleSubmit(
               <label class="block text-sm font-medium text-gray-700 mb-1">Category*</label>
               <select
               name="category" 
-                v-model="values.category" 
+                v-model="values.category"
+                @input="setFieldValue('catagory', $event.target.value)" 
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               >
                 <option value="">Select category</option>
@@ -164,7 +167,8 @@ const onSubmit = handleSubmit(
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Difficulty*</label>
               <select
-                name="difficulty" 
+                name="difficulty"
+                @input="setFieldValue('difficulty', $event.target.value)" 
                 v-model="values.difficulty" 
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               >
@@ -183,7 +187,8 @@ const onSubmit = handleSubmit(
               <label class="block text-sm font-medium text-gray-700 mb-1">Prep Time (minutes)*</label>
               <input
                 name="prepTime" 
-                v-model="values.prepTime" 
+                v-model="values.prepTime"
+                @input="setFieldValue('prepTime', Number($event.target.value))" 
                 type="number" 
                 min="1"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -195,6 +200,7 @@ const onSubmit = handleSubmit(
               <label class="block text-sm font-medium text-gray-700 mb-1">Cook Time (minutes)*</label>
               <input
               name="cookTime" 
+                @input="setFieldValue('cookTime', Number($event.target.value))"
                 v-model="values.cookTime" 
                 type="number" 
                 min="1"
@@ -219,6 +225,7 @@ const onSubmit = handleSubmit(
                 name="images"
                 type="file"
                 multiple
+                @input="setFieldValue('images', $event.target.value)"
                 accept="image/jpeg,image/png"
                 @change="handleImageUpload"
                 class="hidden"
@@ -260,11 +267,13 @@ const onSubmit = handleSubmit(
               <input
                 name="ingredients"
                 v-model="values.ingredients[idx].name"
+                @input="setFieldValue('ingredients', $event.target.value)"
                 placeholder="Ingredient name"
                 class="flex-1 px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
               <input
                 name="quantity"
+                @input="setFieldValue('quantity', Number($event.target.value))"
                 v-model="values.ingredients[idx].quantity"
                 placeholder="Quantity"
                 class="w-1/3 px-3 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -303,6 +312,7 @@ const onSubmit = handleSubmit(
                   <span class="mt-2 mr-2 font-bold text-gray-500">{{ idx + 1 }}.</span>
                   <textarea
                     name="description"
+                    @input="setFieldValue('description', $event.target.value)"
                     v-model="values.steps[idx].description"
                     placeholder="Describe this step..."
                     rows="2"
@@ -340,6 +350,7 @@ const onSubmit = handleSubmit(
           <h2 class="text-lg font-bold mb-4 pb-2 border-b border-gray-200">Pricing</h2>
           <div class="flex items-center mb-2">
             <input
+              @input="setFieldValue('isPremimum', $event.target.value)"
               name="isPremium"
               type="checkbox"
               id="premium-recipe"
@@ -360,6 +371,7 @@ const onSubmit = handleSubmit(
               <input
                 name="price"
                 v-model="values.price"
+                @input="setFieldValue('price', Number($event.target.value))"
                 type="number"
                 min="1"
                 placeholder="Enter amount"
@@ -385,6 +397,13 @@ const onSubmit = handleSubmit(
 </pre>
     </div>
   </div>
+  <button 
+  type="button" 
+  @click="console.log('Current values:', values)"
+  class="mt-4 p-2 bg-gray-200"
+>
+  Debug Form State
+</button>
 </template>
 
 <style scoped>
