@@ -29,12 +29,6 @@ const route= useRoute()
     </NuxtLink>
 
     <NuxtLink
-      to="/categories"
-      class="nav-link"
-      :class="{ 'active-link': route.path === '/categories' }"
-    >Categories</NuxtLink>
-
-    <NuxtLink
       to="/creators"
       class="nav-link"
       :class="{ 'active-link': route.path === '/creators' }"
