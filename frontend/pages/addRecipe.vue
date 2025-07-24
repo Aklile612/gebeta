@@ -37,15 +37,15 @@ const { handleSubmit, errors, values, setFieldValue, meta, touched } = useForm({
   initialValues: {
     title: '',
     description: '',
-    prepTime: null,
-    cookTime: null,
+    prepTime: '',
+    cookTime: '',
     images: [],
     category: '',
     difficulty: '',
     ingredients: [{ name: '', quantity: '' }],
     steps: [{ description: '' }],
     isPremium: false,
-    price: null
+    price: '',
   }
 })
 
