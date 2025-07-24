@@ -158,6 +158,7 @@ watch(() => values.isPremium, (newValue) => {
     setFieldValue('price', null)
   }
 })
+
 // Enhanced form submission with loading state and better error handling
 const onSubmit = handleSubmit(
   async (values) => {
@@ -536,35 +537,10 @@ const handlePriceInput = (event) => {
           Submit Recipe
         </button>
       </form>
-      <pre class="text-xs text-gray-600">
-  {{ values }}
-  {{ errors }}
-  {{ touched }}
-</pre>
-<div class="fixed bottom-4 right-4 p-4 bg-white shadow-lg rounded-lg">
-  <p>Form valid: {{ isFormValid }}</p>
-  <p>Dirty: {{ meta.dirty }}</p>
-  <p>Touched: {{ meta.touched }}</p>
-</div>
+      
     </div>
   </div>
-  <div class="fixed bottom-4 right-4 bg-white p-4 rounded-lg shadow-lg z-50">
-  <button 
-    @click="logFormState"
-    class="bg-blue-500 text-white px-4 py-2 rounded mb-2"
-  >
-    Debug Form State
-  </button>
-  <div v-if="fileError" class="text-red-500 text-sm mb-2">
-    {{ fileError }}
-  </div>
-  <div class="text-xs">
-    <div>Valid: {{ isFormValid }}</div>
-    <div>Dirty: {{ meta.dirty }}</div>
-    <div>Touched: {{ meta.touched }}</div>
-    <div>Images: {{ values.images.length }}</div>
-  </div>
-</div>
+  
 </template>
 
 <style scoped>
