@@ -38,16 +38,20 @@
                     />
                     <!-- like and bookmark -->
                       
-                    <div class="absolute top-2 right-2 flex gap-2 z-10">
-                      <button @click="toggleLike">
+                    <div class="absolute top-2 left-2  z-10">
+                      <button
+                       class="bg-white rounded-full w-7 h-7 transition-all"
+                      @click="toggleLike">
                         <IconHeart
-                          :class="[isLiked ? 'text-red-500' : 'text-white']"
+                          :class="[isLiked ? 'bg-red-500' : 'bg-white']"
                           class="w-5 h-5 hover:scale-110 transition-all drop-shadow"
                         />
                       </button>
+                    </div>
+                    <div class="absolute top-2 w-8 h-8 right-2 z-10">
                       <button @click="toggleBookmark">
                         <IconBookmark
-                          :class="[isBookmarked ? 'text-blue-500' : 'text-white']"
+                          :class="[isBookmarked ? 'bg-blue-500' : 'bg-white']"
                           class="w-5 h-5 hover:scale-110 transition-all drop-shadow"
                         />
                       </button>
