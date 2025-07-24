@@ -277,9 +277,10 @@ const removeImage = (index) => {
         </section>
 
         <!-- Pricing Section -->
+       
         <section class="mb-6">
           <h2 class="text-lg font-bold mb-4 pb-2 border-b border-gray-200">Pricing</h2>
-          <div class="flex items-center">
+          <div class="flex items-center mb-2">
             <input
               type="checkbox"
               id="premium-recipe"
@@ -288,17 +289,23 @@ const removeImage = (index) => {
             />
             <label for="premium-recipe" class="ml-2 text-sm font-medium text-gray-700">Premium Recipe</label>
           </div>
-          <p class="text-xs text-gray-500 mt-1">Charge users to access this recipe</p>
+          <p class="text-xs text-gray-500 mb-3">Charge users to access this recipe</p>
           
-          <div v-if="values.isPremium" class="mt-3">
+          <!-- Price Input (Conditional) -->
+          <div v-if="values.isPremium" class="mt-2 transition-all duration-200 ease-in-out">
             <label class="block text-sm font-medium text-gray-700 mb-1">Price (ETB)*</label>
-            <input
-              v-model="values.price"
-              type="number"
-              min="1"
-              placeholder="Enter price"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-            />
+            <div class="relative rounded-md shadow-sm">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <span class="text-gray-500">ETB</span>
+              </div>
+              <input
+                v-model="values.price"
+                type="number"
+                min="1"
+                placeholder="Enter amount"
+                class="block w-full pl-12 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+              />
+            </div>
             <span class="text-red-500 text-xs mt-1" v-if="touched?.price && errors.price">{{ errors.price }}</span>
           </div>
         </section>
