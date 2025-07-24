@@ -37,8 +37,8 @@ const { handleSubmit, errors, values, setFieldValue, meta, touched } = useForm({
   initialValues: {
     title: '',
     description: '',
-    prepTime: '',
-    cookTime: '',
+    prepTime: null,
+    cookTime: null,
     images: [],
     category: '',
     difficulty: '',
@@ -65,10 +65,7 @@ function handleImageUpload(event) {
     name: file.name
   }))
 }
-// Submission
-const onSubmit = handleSubmit((formValues) => {
-  console.log('✅ Submitted:', formValues)
-})
+
 
 const removeImage = (index) => {
   const newImages = Array.isArray(values.images) ? [...values.images] : []
@@ -76,6 +73,13 @@ const removeImage = (index) => {
   setFieldValue('images', newImages)
   imagePreviews.value.splice(index, 1)
 }
+
+
+// Submission
+const onSubmit = handleSubmit((formValues) => {
+  console.log('✅ Submitted:', formValues)
+  console.log('Form errors (should be empty):', errors)
+})
 </script>
 
 <template>
@@ -103,7 +107,7 @@ const removeImage = (index) => {
             <input 
               v-model="values.title" 
               placeholder="e.g., Grandma's Chocolate Chip Cookies" 
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+              class="w-full px-3 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
             <span class="text-red-500 text-xs mt-1" v-if="touched?.title && errors.title">{{ errors.title }}</span>
           </div>
@@ -115,7 +119,7 @@ const removeImage = (index) => {
               v-model="values.description" 
               placeholder="Tell us about your recipe..." 
               rows="3"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+              class="w-full px-3 py-2 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
             ></textarea>
             <span class="text-red-500 text-xs mt-1" v-if="touched?.description && errors.description">{{ errors.description }}</span>
           </div>
@@ -233,12 +237,12 @@ const removeImage = (index) => {
               <input
                 v-model="values.ingredients[idx].name"
                 placeholder="Ingredient name"
-                class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                class="flex-1 px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
               <input
                 v-model="values.ingredients[idx].quantity"
                 placeholder="Quantity"
-                class="w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                class="w-1/3 px-3 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
               <button
                 type="button"
@@ -276,7 +280,7 @@ const removeImage = (index) => {
                     v-model="values.steps[idx].description"
                     placeholder="Describe this step..."
                     rows="2"
-                    class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    class="flex-1 px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
                   ></textarea>
                 </div>
               </div>
