@@ -45,7 +45,7 @@ const { handleSubmit, errors, values, setFieldValue, meta, touched } = useForm({
     ingredients: [{ name: '', quantity: '' }],
     steps: [{ description: '' }],
     isPremium: false,
-    price: ''
+    price: null
   }
 })
 
