@@ -1,7 +1,7 @@
 <script setup>
 import { useForm, useFieldArray } from 'vee-validate'
 import * as yup from 'yup'
-import { ref } from 'vue'
+import { ref,watch } from 'vue'
 
 // Schema
 const schema = yup.object({
@@ -65,6 +65,9 @@ function handleImageUpload(event) {
     name: file.name
   }))
 }
+watch(() => values.isPremium, (newVal) => {
+  console.log('isPremium changed:', newVal)
+})
 
 
 const removeImage = (index) => {
@@ -76,9 +79,10 @@ const removeImage = (index) => {
 
 
 // Submission
-const onSubmit = handleSubmit((formValues) => {
-  console.log('✅ Submitted:', formValues)
-  console.log('Form errors (should be empty):', errors)
+const onSubmit = handleSubmit((values) => {
+  console.log('✅ Submitted:', values)
+}, (errors) => {
+  console.log('❌ Validation failed:', errors)
 })
 </script>
 
