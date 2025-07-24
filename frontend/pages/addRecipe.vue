@@ -64,11 +64,20 @@ const onSubmit = handleSubmit((formValues) => {
 
 
 <template>
-    <form @submit.prevent="onSubmit" class="space-y-4 py-[70px] max-w-xl mx-auto">
+  <div class="w-full bg-[#fae3cd]">
+
+    <div class="mx-auto ">
+      <div class="flex gap-5">
+        <div class="text-lg font-bold"><IconChevronLeft /></div>
+        <h1 class="font-bold text-lg "> Create New Recipe</h1>
+      </div>
+      <p>Share Your Culiary Creation with the community</p>
+    </div>
+    <form @submit.prevent="onSubmit" class="space-y-4 py-[70px] bg-white max-w-2xl rounded-[5px] mx-auto">
   
       <!-- Title -->
       <input v-model="values.title" placeholder="Title" class="input" />
-      <span class="text-red-500 text-sm">{{ errors.title }}</span>
+      <span class="text-red-500 text-sm">{{values.title ? '': errors.title }}</span>
   
       <!-- Description -->
       <textarea v-model="values.description" placeholder="Description" class="textarea" />
@@ -131,5 +140,6 @@ const onSubmit = handleSubmit((formValues) => {
       <!-- Submit -->
       <button type="submit" class="btn w-full bg-orange-500 text-white">Submit Recipe</button>
     </form>
+  </div>
   </template>
   
