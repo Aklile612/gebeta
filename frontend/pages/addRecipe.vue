@@ -233,10 +233,10 @@ watch(values, (newVal) => {
 
 const logFormState = () => {
   console.log('Current form state:', {
-    values: JSON.parse(JSON.stringify(values)),
-    errors: JSON.parse(JSON.stringify(errors)),
-    meta: JSON.parse(JSON.stringify(meta)),
-    touched: JSON.parse(JSON.stringify(touched))
+    ...values,
+    priceType: typeof values.price,
+    isPremium: values.isPremium,
+    images: values.images.map(f => f.name)
   })
 }
 const handlePriceInput = (event) => {
