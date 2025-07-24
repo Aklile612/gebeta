@@ -70,7 +70,7 @@ const route= useRoute()
 
 .nav-link::after {
   content: '';
-  @apply absolute left-0 bottom-[-1px] w-full h-[3px] bg-orange-500 opacity-0 transition-all duration-100;
+  @apply absolute left-0 bottom-[-1px] w-full h-[3px] bg-orange-400 opacity-0 transition-all duration-100;
 }
 
 .nav-link:hover::after {
@@ -78,6 +78,6 @@ const route= useRoute()
 }
 
 .active-link::after {
-  @apply absolute left-0 bottom-[-1px] w-full h-[3px] bg-orange-700 blur-[1px] opacity-100;
+  @apply absolute left-0 bottom-[-1px] w-full h-[3px] bg-orange-600 blur-[1px] opacity-100;
 }
 </style>

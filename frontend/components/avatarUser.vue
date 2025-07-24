@@ -4,8 +4,8 @@
 
 
 <template>
-    <div class="bg-white  w-full h-[60vh]">
-        <div class="mx-[30vw] pt-[40px]">
+    <div class="bg-white  w-full h-[70vh]">
+        <div class="mx-[30vw] pt-[70px]">
             <h1 class="mb-5 text-4xl ml-[7vw] font-serif  font-bold">Top Recipe Creators</h1>
 
         </div>

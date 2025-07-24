@@ -5,10 +5,10 @@ import ratingFilter from '~/components/ratingFilter.vue';
 </script>
 
 <template>
-    <div class="bg-white pt-[70px] ">
+    <div class="bg-[#fae3cd] pt-[70px] ">
         <!-- title -->
-        <div class="h-[20vh] flex justify-center">
-            <p class="text-xl font-bold">All Recipes</p>
+        <div class="h-[10vh] flex flex-col justify-center">
+            <p class="text-2xl font-bold">All Recipes</p>
             <p class="text-sm">Browes meals shared by the users around the world</p>
         </div>
 
@@ -16,8 +16,8 @@ import ratingFilter from '~/components/ratingFilter.vue';
 
         <!-- main recipe part -->
          <div class="bg-[#ebe9e9] w-full h-[80vh]">
-            <div class="w-full ml-16">
-                <div class="my-10">
+            <div class="w-full ">
+                <div class=" ml-16">
                     <label class="input  bg-white border-black">
                     <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <g stroke-linejoin="round"
@@ -36,9 +36,14 @@ import ratingFilter from '~/components/ratingFilter.vue';
                     </label>
                 </div>
             </div>
-            <div class="w-full flex gap-3">
+            <div class="w-full flex ml-13 gap-3">
                 <prepTime/>
                 <ratingFilter/>
+
+                <div>
+                    <!-- <button class="btn btn-neutral btn-outline"><IconFunnel />   More</button> -->
+                    
+                </div>
             </div>
          </div>
     </div>
