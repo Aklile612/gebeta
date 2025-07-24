@@ -2,7 +2,8 @@
 import { useForm, useFieldArray } from 'vee-validate'
 import * as yup from 'yup'
 import { ref, watch, computed, onBeforeUnmount } from 'vue'
-
+// In your component
+const toast = useToast();
 // Enhanced schema with better validation messages
 const schema = yup.object({
   title: yup.string().required('Recipe title is required').max(100, 'Title too long'),
@@ -179,12 +180,7 @@ const onSubmit = handleSubmit(
       console.log('--- Form Submission Data ---')
       console.log('Metadata:', metadata)
       console.log('Image count:', values.images.length)
-      useToast().add({
-      title: 'Success!',
-      description: 'Recipe submitted successfully.',
-      icon: 'i-heroicons-check-circle',
-      color: 'green'
-    });
+      toast.success("Recipe saved!"); // No CSS conflicts
       // Uncomment for actual API call
       /*
       const response = await fetch('/api/recipes', {
