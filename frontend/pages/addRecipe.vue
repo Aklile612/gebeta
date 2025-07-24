@@ -3,13 +3,47 @@ import { useForm, useFieldArray } from 'vee-validate'
 import * as yup from 'yup'
 import { ref, watch, computed, onBeforeUnmount } from 'vue'
 
-// Schema remains the same
+// Enhanced schema with better validation messages
 const schema = yup.object({
-  // ... (keep your existing schema)
+  title: yup.string().required('Recipe title is required').max(100, 'Title too long'),
+  description: yup.string().required('Description is required').max(500, 'Description too long'),
+  prepTime: yup.number()
+    .min(1, 'Must be at least 1 minute')
+    .max(600, 'Prep time too long')
+    .required('Prep time is required'),
+  cookTime: yup.number()
+    .min(1, 'Must be at least 1 minute')
+    .max(600, 'Cook time too long')
+    .required('Cook time is required'),
+  images: yup.array()
+    .min(1, 'At least one image is required')
+    .max(5, 'Maximum 5 images allowed'),
+  category: yup.string().required('Category is required'),
+  difficulty: yup.string().required('Difficulty is required'),
+  ingredients: yup.array()
+    .of(yup.object({
+      name: yup.string().required('Ingredient name is required').max(50),
+      quantity: yup.string().required('Quantity is required').max(20)
+    }))
+    .min(1, 'At least one ingredient is required'),
+  steps: yup.array()
+    .of(yup.object({
+      description: yup.string().required('Step description is required').max(500)
+    }))
+    .min(1, 'At least one step is required'),
+  isPremium: yup.boolean(),
+  price: yup.number().when('isPremium', {
+    is: true,
+    then: schema => schema
+      .required('Price is required for premium recipes')
+      .min(1, 'Price must be at least 1')
+      .max(1000, 'Price too high'),
+    otherwise: schema => schema.notRequired()
+  })
 })
 
-// Form setup with proper initial values
-const { handleSubmit, errors, values, setFieldValue, meta, touched } = useForm({
+// Form setup with enhanced initial values
+const { handleSubmit, errors, values, setFieldValue, meta, touched, resetForm } = useForm({
   validationSchema: schema,
   initialValues: {
     title: '',
@@ -27,25 +61,55 @@ const { handleSubmit, errors, values, setFieldValue, meta, touched } = useForm({
 })
 
 const isFormValid = computed(() => meta.value.valid)
+const isSubmitting = ref(false)
 
-// Field arrays
+// Enhanced field arrays with auto-focus on new items
 const { fields: ingredientFields, push: addIngredient, remove: removeIngredient } = useFieldArray('ingredients')
 const { fields: stepFields, push: addStep, remove: removeStep } = useFieldArray('steps')
 
-// File handling
+const addNewIngredient = () => {
+  addIngredient({ name: '', quantity: '' })
+  nextTick(() => {
+    const inputs = document.querySelectorAll('.ingredient-name-input')
+    inputs[inputs.length - 1]?.focus()
+  })
+}
+
+const addNewStep = () => {
+  addStep({ description: '' })
+  nextTick(() => {
+    const textareas = document.querySelectorAll('.step-description-input')
+    textareas[textareas.length - 1]?.focus()
+  })
+}
+
+// File handling with better error states
 const imagePreviews = ref([])
 const fileInput = ref(null)
+const fileError = ref(null)
 
 function handleImageUpload(event) {
+  fileError.value = null
   const MAX_SIZE = 5 * 1024 * 1024 // 5MB
+  const MAX_FILES = 5
   const files = event.target.files
   
   if (!files || files.length === 0) return
 
-  // Check file sizes
+  // Check number of files
+  if (files.length + imagePreviews.value.length > MAX_FILES) {
+    fileError.value = `You can upload maximum ${MAX_FILES} files`
+    return
+  }
+
+  // Check file sizes and types
   const validFiles = Array.from(files).filter(file => {
     if (file.size > MAX_SIZE) {
-      console.warn(`File ${file.name} exceeds 5MB limit`)
+      fileError.value = `File ${file.name} exceeds 5MB limit`
+      return false
+    }
+    if (!['image/jpeg', 'image/png'].includes(file.type)) {
+      fileError.value = `File ${file.name} must be JPG or PNG`
       return false
     }
     return true
@@ -54,18 +118,19 @@ function handleImageUpload(event) {
   if (validFiles.length === 0) return
 
   // Create new array with existing and new files
-  const currentImages = values.images || []
-  const newImages = [...currentImages, ...validFiles]
-  
+  const newImages = [...values.images, ...validFiles]
   setFieldValue('images', newImages)
 
   // Generate previews only for new files
   const newPreviews = validFiles.map(file => ({
     url: URL.createObjectURL(file),
-    name: file.name
+    name: file.name,
+    size: file.size,
+    type: file.type
   }))
   
   imagePreviews.value = [...imagePreviews.value, ...newPreviews]
+  event.target.value = '' // Reset file input
 }
 
 // Clean up object URLs
@@ -87,30 +152,53 @@ const removeImage = (index) => {
   imagePreviews.value.splice(index, 1)
 }
 
-// Enhanced form submission
+// Enhanced form submission with loading state and better error handling
 const onSubmit = handleSubmit(
-  (values) => {
-    // Create FormData for file upload
-    const formData = new FormData()
-    
-    // Append all fields except images
-    Object.entries(values).forEach(([key, value]) => {
-      if (key !== 'images') {
-        formData.append(key, typeof value === 'object' ? JSON.stringify(value) : value)
-      }
-    })
-    
-    // Append each image file
-    values.images.forEach((file, index) => {
-      formData.append(`images[${index}]`, file)
-    })
+  async (values) => {
+    isSubmitting.value = true
+    try {
+      const formData = new FormData()
+      
+      // Append metadata as JSON
+      const { images, ...metadata } = values
+      formData.append('metadata', JSON.stringify(metadata))
+      
+      // Append each image file
+      values.images.forEach((file, index) => {
+        formData.append(`images`, file) // Simplified field name
+      })
 
-    console.log('✅ Form ready for submission:', formData)
-    // Here you would send formData to your API
+      // Debug output
+      console.log('--- Form Submission Data ---')
+      console.log('Metadata:', metadata)
+      console.log('Image count:', values.images.length)
+      
+      // Uncomment for actual API call
+      /*
+      const response = await fetch('/api/recipes', {
+        method: 'POST',
+        body: formData
+      })
+      
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      
+      const result = await response.json()
+      console.log('Success:', result)
+      resetForm()
+      */
+      
+    } catch (error) {
+      console.error('Submission error:', error)
+      // Handle error (show toast, etc.)
+    } finally {
+      isSubmitting.value = false
+    }
   },
   (errors) => {
-    console.log('❌ Validation errors:', errors)
-    // Scroll to first error
+    console.log('Validation errors:', errors)
+    // Enhanced error scrolling
     const firstErrorKey = Object.keys(errors)[0]
     if (firstErrorKey) {
       let selector = `[name="${firstErrorKey}"]`
@@ -121,13 +209,31 @@ const onSubmit = handleSubmit(
         selector = `[name="${fieldName}_${index}"]`
       }
       
-      document.querySelector(selector)?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
-      })
+      const errorElement = document.querySelector(selector)
+      if (errorElement) {
+        errorElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        })
+        errorElement.focus()
+      }
     }
   }
 )
+
+// Debug helpers
+watch(values, (newVal) => {
+  console.log('Form values updated:', JSON.parse(JSON.stringify(newVal)))
+}, { deep: true })
+
+const logFormState = () => {
+  console.log('Current form state:', {
+    values: JSON.parse(JSON.stringify(values)),
+    errors: JSON.parse(JSON.stringify(errors)),
+    meta: JSON.parse(JSON.stringify(meta)),
+    touched: JSON.parse(JSON.stringify(touched))
+  })
+}
 </script>
 
 <template>
