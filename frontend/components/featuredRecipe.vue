@@ -28,9 +28,9 @@
             <p class="text-lg font-semibold ml-5 text-gray-500 -mt-2">Discover the most loved recipe from the community</p>
         </div>
         <div class="ml-10 flex gap-10 justify-center  mt-12">
-            <div class="card card-md bg-white w-80 h-[55vh] shadow-sm rounded-xl overflow-hidden">
+            <div class="relative card card-md bg-white w-80 h-[55vh] shadow-sm rounded-xl overflow-hidden">
                 <!-- Image -->
-                <figure>
+                <figure class="relative">
                   <img
                     class="w-full h-[180px] object-cover hover:scale-110  transition-all rounded-lg"
                     src="/image/hero.png"
