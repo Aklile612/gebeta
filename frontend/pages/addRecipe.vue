@@ -79,26 +79,26 @@ const onSubmit = handleSubmit((formValues) => {
       <div class="font-bold text-lg mt-2">Basic Information</div>
       <!-- Title -->
        <div class="mb-4 w-full">
-        <label class="text-xs ml-3">Recipe Title*</label>
+        <label class="text-xs ml-3 font-semibold">Recipe Title*</label>
         <input v-model="values.title" placeholder="eg. Holiday tibes" class="input w-2xl bg-sla placeholder-slate-300 placeholder:font-semibold placeholder:text-[10px]" />
         <span class="text-red-500 text-sm" v-if="touched?.title && errors.title">{{errors.title }}</span>
       </div>
       <!-- Description -->
       <div class="my-2 w-full">
-         <label class="text-sm ml-3">Description</label>
-         <textarea v-model="values.description" placeholder="Describe your recipe and what makes it special" class="w-2xl textarea bg-white placeholder-slate-300" />
+         <label class="text-sm ml-3 font-semibold">Description*</label>
+         <textarea v-model="values.description" placeholder="Describe your recipe and what makes it special" class="w-2xl textarea bg-white placeholder:text-[10px] placeholder-slate-300" />
          <span class="text-red-500 text-sm" v-if="touched?.description && errors.description">{{ errors.description }}</span>
       </div>
   
       <!-- Prep & Cook Time -->
       <div class="flex gap-2">
-        <label class="text-sm ml-8">Times needed</label>
-        <input v-model="values.prepTime" type="number" placeholder="Prep Time (min)" class="input bg-white placeholder-slate-300" />
-        <input v-model="values.cookTime" type="number" placeholder="Cook Time (min)" class="input bg-white placeholder-slate-300" />
+        <label class="text-xs ml-8 font-semibold max-w-full">Times needed</label><br>
+        <input v-model="values.prepTime" type="number" placeholder="Prep Time (min)" class="input bg-[#EFEFEF] placeholder-black placeholder:font-semibold placeholder:text-[10px]" />
+        <input v-model="values.cookTime" type="number" placeholder="Cook Time (min)" class="input bg-[#EFEFEF] placeholder-black placeholder:font-semibold placeholder:text-[10px]" />
       </div>
   
       <!-- Image Upload -->
-      <label class="text-sm ml-3">Images</label>
+      <label class="text-xs font-semibold ml-3 max-w-full">Images</label>
 
       <!-- Upload box -->
       <div class="relative bg-white rounded-md h-40 w-2xl flex items-center justify-center">
