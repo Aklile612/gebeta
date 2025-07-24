@@ -68,24 +68,27 @@ const onSubmit = handleSubmit((formValues) => {
 <template>
   <div class="w-full bg-[#fae3cd] py-[70px]">
 
-    <div class="mx-auto ">
-      <div class="flex gap-5">
-        <div class="text-lg font-bold"><IconChevronLeft /></div>
+    <div class="mx-20 ">
+      <div class="flex gap-2">
+        <NuxtLink to="/" class="text-lg font-bold hover:scale-105"><IconChevronLeft /></NuxtLink>
         <h1 class="font-bold text-lg "> Create New Recipe</h1>
       </div>
       <p>Share Your Culiary Creation with the community</p>
     </div>
-    <form @submit.prevent="onSubmit" class="space-y-4  bg-white max-w-3xl px-5 rounded-[5px] mx-auto">
-      <div class="font-bold text-lg">Basic Information</div>
+    <form @submit.prevent="onSubmit" class="space-y-4 shadow-md shadow-slate-600   bg-white max-w-3xl px-5 rounded-[7px] mx-auto">
+      <div class="font-bold text-lg mt-2">Basic Information</div>
       <!-- Title -->
-      <label class="text-sm ml-3">Recipe Title</label>
-      <input v-model="values.title" placeholder="eg. Holiday tibes" class="input w-2xl bg-white placeholder-slate-300" />
-      <span class="text-red-500 text-sm" v-if="touched?.title && errors.title">{{errors.title }}</span>
-  
+       <div class="mb-4 w-full">
+        <label class="text-xs ml-3">Recipe Title*</label>
+        <input v-model="values.title" placeholder="eg. Holiday tibes" class="input w-2xl bg-sla placeholder-slate-300 placeholder:font-semibold placeholder:text-[10px]" />
+        <span class="text-red-500 text-sm" v-if="touched?.title && errors.title">{{errors.title }}</span>
+      </div>
       <!-- Description -->
-      <label class="text-sm ml-3">Description</label>
-      <textarea v-model="values.description" placeholder="Describe your recipe and what makes it special" class="w-2xl textarea bg-white placeholder-slate-300" />
-      <span class="text-red-500 text-sm" v-if="touched?.description && errors.description">{{ errors.description }}</span>
+      <div class="my-2 w-full">
+         <label class="text-sm ml-3">Description</label>
+         <textarea v-model="values.description" placeholder="Describe your recipe and what makes it special" class="w-2xl textarea bg-white placeholder-slate-300" />
+         <span class="text-red-500 text-sm" v-if="touched?.description && errors.description">{{ errors.description }}</span>
+      </div>
   
       <!-- Prep & Cook Time -->
       <div class="flex gap-2">
@@ -98,9 +101,9 @@ const onSubmit = handleSubmit((formValues) => {
       <label class="text-sm ml-3">Images</label>
 
       <!-- Upload box -->
-      <div class="relative bg-orange-500 rounded-md h-40 w-2xl flex items-center justify-center">
+      <div class="relative bg-white rounded-md h-40 w-2xl flex items-center justify-center">
         <div class="text-center space-y-1">
-          <p class="text-white font-medium">Add your images here</p>
+          <p class="text-slate-300 font-semibold">Add your images here</p>
           
           <!-- Button triggers file input -->
           <button
