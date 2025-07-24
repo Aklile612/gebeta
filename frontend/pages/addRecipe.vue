@@ -172,68 +172,30 @@ const removeImage = (index) => {
         </section>
 
         <!-- Recipe Images Section -->
-          <!-- Recipe Images Section -->
-    <section class="mb-8">
-      <h2 class="text-lg font-bold mb-4 pb-2 border-b border-gray-200">Recipe Images</h2>
-      <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-        <!-- Upload Area -->
-        <div v-if="!values.images?.length" class="flex flex-col items-center justify-center">
-          <svg class="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-          </svg>
-          <p class="text-sm text-gray-500 mb-2">Drag & drop images or click to browse</p>
-          <p class="text-xs text-gray-400 mb-4">Support: JPG, PNG (Max 5MB each)</p>
-          <input
-            type="file"
-            multiple
-            accept="image/jpeg,image/png"
-            @change="handleImageUpload"
-            class="hidden"
-            id="image-upload"
-          />
-          <label for="image-upload" class="px-4 py-2 bg-orange-500 text-white rounded-md cursor-pointer hover:bg-orange-600 transition">
-            Choose Files
-          </label>
-        </div>
-
-        <!-- Image Previews -->
-        <div v-else class="grid grid-cols-3 gap-4">
-          <div v-for="(image, index) in values.images" :key="index" class="relative group">
-            <img 
-              :src="typeof image === 'string' ? image : URL.createObjectURL(image)" 
-              class="w-full h-32 object-cover rounded-md"
-            />
-            <button
-            type="button"
-            @click="removeImage(index)"
-            class="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-        <!-- Add More Button -->
-        <div class="border-2 border-dashed border-gray-300 rounded-md flex items-center justify-center cursor-pointer">
-          <input
-            type="file"
-            multiple
-            accept="image/jpeg,image/png"
-            @change="handleImageUpload"
-            class="hidden"
-            id="additional-upload"
-          />
-          <label for="additional-upload" class="p-4 text-center">
-            <svg class="w-8 h-8 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-            </svg>
-            <span class="text-xs text-gray-500">Add more</span>
-          </label>
-        </div>
-      </div>
-      <span class="text-red-500 text-xs mt-2" v-if="touched?.images && errors.images">{{ errors.images }}</span>
-    </div>
-  </section>
+        <section class="mb-8">
+          <h2 class="text-lg font-bold mb-4 pb-2 border-b border-gray-200">Recipe Images</h2>
+          <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+            <div class="flex flex-col items-center justify-center">
+              <svg class="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <p class="text-sm text-gray-500 mb-2">Drag & drop images or click to browse</p>
+              <p class="text-xs text-gray-400 mb-4">Support: JPG, PNG (Max 5MB each)</p>
+              <input
+                type="file"
+                multiple
+                accept="image/jpeg,image/png"
+                @change="handleImageUpload"
+                class="hidden"
+                id="image-upload"
+              />
+              <label for="image-upload" class="px-4 py-2 bg-orange-500 text-white rounded-md cursor-pointer hover:bg-orange-600 transition">
+                Choose Files
+              </label>
+            </div>
+            <span class="text-red-500 text-xs mt-2" v-if="touched?.images && errors.images">{{ errors.images }}</span>
+          </div>
+        </section>
 
         <!-- Ingredients Section -->
         <section class="mb-8">
