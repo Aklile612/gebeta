@@ -31,16 +31,17 @@ const schema = yup.object({
       description: yup.string().required('Step description is required').max(500)
     }))
     .min(1, 'At least one step is required'),
-  isPremium: yup.boolean(),
-  price: yup.mixed().when('isPremium', {
-  is: true,
-  then: yup.number()
-    .typeError('Price must be a number')
-    .required('Price is required for premium recipes')
-    .min(1, 'Price must be at least 1')
-    .max(1000, 'Price too high'),
-  otherwise: yup.mixed().notRequired()
-})
+    price: yup.number()
+  .when('isPremium', {
+    is: true,
+    then: (schema) => 
+      schema
+        .typeError('Price must be a number')
+        .required('Price is required for premium recipes')
+        .min(1, 'Price must be at least 1')
+        .max(1000, 'Price too high'),
+    otherwise: (schema) => schema.nullable().notRequired()
+  })
 })
 
 // Form setup with enhanced initial values
