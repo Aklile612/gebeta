@@ -5,7 +5,7 @@ import ratingFilter from '~/components/ratingFilter.vue';
 </script>
 
 <template>
-    <div class="bg-[#fae3cd] pt-[70px] ">
+    <div class="bg-[#fae3cd] pt-[70px] flex flex-col justify-center ">
         <!-- title -->
         <div class="h-[10vh] flex flex-col justify-center">
             <p class="text-2xl font-bold">All Recipes</p>

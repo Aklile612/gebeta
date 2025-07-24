@@ -35,23 +35,28 @@
                     class="w-full h-[180px] object-cover hover:scale-110  transition-all rounded-lg"
                     src="/image/hero.png"
                     alt="food image"
-                  />
+                    />
+                    <!-- like and bookmark -->
+                      
+                    <div class="absolute top-2 right-2 flex gap-2 z-10">
+                      <button @click="toggleLike">
+                        <IconHeart
+                          :class="[isLiked ? 'text-red-500' : 'text-white']"
+                          class="w-5 h-5 hover:scale-110 transition-all drop-shadow"
+                        />
+                      </button>
+                      <button @click="toggleBookmark">
+                        <IconBookmark
+                          :class="[isBookmarked ? 'text-blue-500' : 'text-white']"
+                          class="w-5 h-5 hover:scale-110 transition-all drop-shadow"
+                        />
+                      </button>
+                    </div>
                 </figure>
             
                 <!-- Body -->
                 <div class="card-body p-4 pt-2">
-                  <!-- like and bookmark -->
-                  <div class="flex justify-end gap-2 mb-2">
-                    <!-- Like button -->
-                    <button @click="toggleLike">
-                      <IconHeart :class="[isLiked ? 'text-red-500' : '']" class="w-5 h-5 hover:scale-110 transition-all" />
-                    </button>
-
-                    <!-- Bookmark button -->
-                    <button @click="toggleBookmark">
-                      <IconBookmark :class="[isBookmarked ? 'text-blue-500' : '']" class="w-5 h-5 hover:scale-110 transition-all" />
-                    </button>
-                  </div>
+                  
                   <!-- Top Row: Rating -->
                   <div class="flex items-center gap-1 text-sm text-yellow-500">
                     <IconStar class="w-4 h-4" />
