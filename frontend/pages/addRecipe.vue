@@ -87,7 +87,7 @@ const onSubmit = handleSubmit((values) => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-[#fae3cd] py-8 px-4">
+  <div class="min-h-screen pt-[70px] bg-[#fae3cd] py-8 px-4">
     <div class="max-w-3xl mx-auto">
       <!-- Header -->
       <div class="mb-6">
