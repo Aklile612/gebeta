@@ -539,7 +539,7 @@ const handlePriceInput = (event) => {
           type="submit"
           class="w-full bg-orange-500 text-white py-3 px-4 rounded-md hover:bg-orange-600 transition font-medium"
         >
-          Submit Recipe
+          Submit Recipe1
         </button>
       </form>
       
