@@ -66,7 +66,7 @@ const onSubmit = handleSubmit((formValues) => {
 
 
 <template> 
-  <div class="w-full justify-center flex items-center bg-[#fae3cd] py-[70px]">
+  <div class="w-full justify-center flex flex-col items-center bg-[#fae3cd] py-[70px]">
 
     <div class="mx-20 ">
       <div class="flex">
@@ -75,7 +75,7 @@ const onSubmit = handleSubmit((formValues) => {
       </div>
       <p>Share Your Culiary Creation with the community</p>
     </div>
-    <form @submit.prevent="onSubmit" class="space-y-4 shadow-md shadow-slate-600 h-[80vh]   bg-white max-w-3xl px-5 rounded-[7px] mx-auto">
+    <form @submit.prevent="onSubmit" class="space-y-4 shadow-md shadow-slate-600 h-auto   bg-white max-w-3xl px-5 rounded-[7px] mx-auto">
       <div class="font-bold text-lg mt-2">Basic Information</div>
       <!-- Title -->
        <div class="mb-4 w-full flex flex-col">
@@ -192,9 +192,9 @@ const onSubmit = handleSubmit((formValues) => {
         <span class="text-red-500 text-sm" v-if="touched?.price && errors.price">{{ errors.price }}</span>
       </div>
   
-      <!-- Submit -->
-      <button type="submit" class="btn w-full bg-orange-500 text-white">Submit Recipe</button>
     </form>
+    <!-- Submit -->
+    <button type="submit" class="btn w-full bg-orange-500 text-white">Submit Recipe</button>
   </div>
   </template>
   
