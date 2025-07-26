@@ -56,13 +56,9 @@ func BuyRecipeHandler(c *gin.Context){
 		})
 		return
 	}
-	err= graphql.InsertRecipePurchase(userID,recipeID,recipe.Price)
-	if err != nil{
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to record purchase", "detail": err.Error()})
-		return
-	}
+	
 
-	c.JSON(http.StatusOK,gin.H{"message":"purchase recorded; access will be granted shortly",
-		"purchase_submitted":  true,
+	c.JSON(http.StatusOK,gin.H{"message":"payment required",
+		
 		"access_granted":      false,})
 }
