@@ -131,8 +131,9 @@ Ensure you add all the required env vars in your dashboard.
 
 | Home                     | Recipe Detail | Create Recipe |
 | ------------------------ | ------------- | ------------- |
+ home page
 | <img width="1352" height="621" alt="image" src="https://github.com/user-attachments/assets/4596e540-0855-4a54-a4ec-af7b66177605" />
- |               |               |
+
 <img width="1356" height="612" alt="image" src="https://github.com/user-attachments/assets/8e035a81-d643-4470-a393-50223c9fda25" />
   Login page
 <img width="1366" height="619" alt="image" src="https://github.com/user-attachments/assets/b52b8fbf-1296-4b1c-bb44-86270964cc00" />
