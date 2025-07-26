@@ -39,7 +39,7 @@ func RegisterHandler(c *gin.Context){
 		return
 	}
 
-	token,err:= auth.GenerateJWT(user.ID)
+	token,err:= auth.GenerateJWT(user.ID,user.Email,user.FullName)
 
 	if err != nil{
 		c.JSON(http.StatusInternalServerError,gin.H{"Error": "Error geerating token the user"})
