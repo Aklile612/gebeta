@@ -40,7 +40,7 @@ func CLOUDINARYCREDINTIALS() (string,string,string){
 
 }
 
-func CHAPAPAYMENTCREDINTIALS()(string,string,string,string){
+func CHAPAPAYMENTCREDINTIALS()(string,string,string){
 	LoadEnv()
-	return os.Getenv("CHAPA_SECRET_KEY"),os.Getenv("CHAPA_BASE_URL"),os.Getenv("CHAPA_CALLBACK_URL"),os.Getenv("CHAPA_RETURN_URL")
+	return os.Getenv("CHAPA_SECRET_KEY"),os.Getenv("CHAPA_CALLBACK_URL"),os.Getenv("CHAPA_RETURN_URL")
 }
