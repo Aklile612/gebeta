@@ -9,9 +9,11 @@ import (
 	"github.com/aklile/recipe-backend/internal/config"
 	"github.com/aklile/recipe-backend/internal/graphql"
 	"github.com/aklile/recipe-backend/internal/handlers"
+	"github.com/aklile/recipe-backend/internal/payments"
 	"github.com/gin-gonic/gin"
 )
 
+//docker start docker-hasura-1 docker-postgres-1 portainer
 func main() {
 	
 	config.LoadEnv()
@@ -41,7 +43,7 @@ func main() {
 	router.POST("/login",handlers.LoginHandler)
 	router.GET("/recipes", handlers.GetAllRecipesHandler)
 	router.POST("/recipes/webhook/purchase",handlers.PurchaseWebhookHandler)
-
+	router.GET("/api/payments/callback", payments.ChapaCallbackHandler)
 	authGroup:= router.Group("/")
 	authGroup.Use(auth.JWTMiddleware())
 	authGroup.POST("/add_recipes",handlers.AddRecipeHandler)
@@ -51,7 +53,7 @@ func main() {
 	authGroup.POST("/recipes/bookmark/:id",handlers.ADDRecipeBookmarksHandler)
 	authGroup.POST("/recipes/rating/:id",handlers.AddRatingtoRecipeHandler)
 	authGroup.DELETE("/recipes/likes/:id",handlers.DeleteRecipeLikehandler)
-	authGroup.POST("recipes/buy/:id",handlers.BuyRecipeHandler)
+	authGroup.POST("recipes/buy/:id",payments.InitRecipePurchaseHandler)
 	err := router.Run(":8081")
 
 	if err != nil { 
