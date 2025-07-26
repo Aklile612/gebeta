@@ -39,3 +39,8 @@ func CLOUDINARYCREDINTIALS() (string,string,string){
 	return os.Getenv("CLOUDINARY_CLOUD_NAME"), os.Getenv("CLOUDINARY_API_KEY"), os.Getenv("CLOUDINARY_API_SECRET")
 
 }
+
+func CHAPAPAYMENTCREDINTIALS()(string,string,string,string){
+	LoadEnv()
+	return os.Getenv("CHAPA_SECRET_KEY"),os.Getenv("CHAPA_BASE_URL"),os.Getenv("CHAPA_CALLBACK_URL"),os.Getenv("CHAPA_RETURN_URL")
+}
