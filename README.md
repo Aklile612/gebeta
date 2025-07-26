@@ -160,13 +160,3 @@ Pull requests are welcome. For major changes, open an issue first to discuss wha
 
 ```
 
----
-
-Let me know if you'd like:
-- a version with actual images/screenshots
-- a shortened version
-- a specific section (like `frontend/README.md`)
-- or a deployment guide with Render/Hasura hosting
-
-I'll help tailor it exactly for your needs.
-```
