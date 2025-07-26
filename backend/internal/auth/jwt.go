@@ -13,6 +13,8 @@ var jwtSecret= config.LoadJWTSecret()
 
 type Claims struct{
 	UserID string `json:"sub"`
+	Email     string `json:"email"`      
+	FullName  string `json:"full_name"`
 	jwt.RegisteredClaims 
 	HasuraClaims   HasuraClaims  `json:"https://hasura.io/jwt/claims"` 
 }
@@ -23,9 +25,11 @@ type HasuraClaims struct{
 	UserID string `json:"x-hasura-user-id"`
 }
 
-func GenerateJWT (userID string) (string,error){
+func GenerateJWT (userID,email,fullName string) (string,error){
 	claims:= Claims{
 		UserID: userID,
+		Email:    email,
+		FullName: fullName,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 72)),
 			IssuedAt: jwt.NewNumericDate(time.Now()),
