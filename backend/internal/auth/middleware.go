@@ -36,6 +36,8 @@ func JWTMiddleware()gin.HandlerFunc{
 			return 
 		}
 		c.Set("user_id",claims.UserID)
+		c.Set("email", claims.Email)     
+		c.Set("full_name", claims.FullName)
 		c.Set("jwt_token", tokenStr)
 		c.Next()
 		
