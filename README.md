@@ -39,20 +39,6 @@ A full-stack web application where users can discover, share, and purchase food 
 
 ---
 
-## 📁 Project Structure
-
-```
-
-recipe-app/
-├── frontend/         # Nuxt 3 project
-├── backend/          # Go backend for Hasura Actions & Events
-│   └── cmd/
-│       └── server/   # main.go entry point
-├── hasura/           # Hasura migrations & metadata
-└── docker/           # Dockerfiles and deployment setup
-
-````
-
 ---
 
 ## 🚀 Getting Started
