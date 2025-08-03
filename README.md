@@ -47,7 +47,6 @@ A full-stack web application where users can discover, share, and purchase food 
 
 - [Docker](https://www.docker.com/)
 - [Go ≥ 1.24](https://golang.org/)
-- [Node.js ≥ 18](https://nodejs.org/)
 - [Hasura CLI](https://hasura.io/docs/latest/hasura-cli/)
 - Cloudinary Account
 - Chapa Account
