@@ -53,10 +53,6 @@ A full-stack web application where users can discover, share, and purchase food 
 
 ---
 
-### 🔧 Environment Variables
-
-Create a `.env` file in both `backend/` and `frontend/` with the necessary variables.
-
 #### Backend `.env`:
 
 ```env
